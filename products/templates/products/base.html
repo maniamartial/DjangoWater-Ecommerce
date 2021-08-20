@@ -1,0 +1,266 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wodeProject</title>
+
+    <!-- Bootstrap CSS -------------------------------------------------------------------------------------------------------------------->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <!--===============================================================================================-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@200;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animation.css' %}">
+    <link rel="stylesheet" href="{% static 'css/watersample.css' %}">
+    <link rel="stylesheet" href="{% static 'css/authenticating.css' %}">
+    <link rel="stylesheet" href="{% static 'css/singleProduct.css' %}">
+    <!-------------------------------------------------------------------------------------------------------------------------------------------------->
+<script type="text/javascript">
+//Used to find the current user of teh site
+    var user='{{ request.user}}'
+    //Used to allow the AJAX json send information csrf token
+       function getToken(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken=getToken('csrftoken')
+    
+    </script>
+    <!------------------------------------->
+    {% if title%}
+    <title>Umoja Water Supplier-{{title}}</title>
+    {% else %}
+    <title>Umoja Water Supplier</title>
+    {%endif%}
+</head>
+
+<body>
+    <!---------Header----------------------------------------------------------------------------------------------------->
+    
+    <header>
+        <nav class="center">
+            <ul class="center">
+                <li class="btn-group">
+                    <h2>
+                        <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: white;">
+                        <span><div class="bars"></div>
+                        <div class="bars"></div>
+                        <div class="bars"></div></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Separated link</a></li>
+                        </ul>
+                    </h2>
+                </li>
+
+                <!------------------------------------------------------------------------------------------------------------Logo name-->
+                <li class="logoname"><a href="{% url 'home' %}">
+                        <h1>WODE</h1>
+                    </a></li>
+<!-----------------------------------------------------------------------------------------------------------End of logo name-->
+<!------------------------------------------------------------------------------------------------------------Search-->
+                <li>
+                    <form class="form-inline my-2 my-lg-0" method="POST" action="{%url 'search'%}">
+                        {%csrf_token%}
+                    <div class="input-group mb-3">
+                        <input type="search" name="q" class="form-control" placeholder="Search" >
+                        <div class="input-group-append">
+                            <button type="submit" class="input-group-text" id="basic-addon2" style="background-color: gold;">Search</button>
+                        </div>
+                    </div>    </form>
+                </li>
+          <!-------------------------------------------------------------------------------------------------------End of search -->
+                  
+                <style>
+                
+                    .input-group{
+                        background-color: green;
+                        margin-top: -50px;
+                    }      
+                </style>
+
+                <!------------------------------------------------------------------------------------------------------Dealing with authentication-->
+                {%if user.is_authenticated %}
+    <li class="accounts">
+            <div class="select">
+        <select class="hide-select" id="myselect">
+            <option value='profile'><a class="login" >Hi,{{user.username}}</a></option>
+            <option value='logout'><a class="login" href="{% url 'logout'%}" > Logout</a></option>
+            <option value="account"><a class="login" href="{%url 'profile'%}" >Profile</a></option>
+        </select>
+            </div>
+    </li>
+ 
+                {%else%}
+         <li class="accounts">
+             <div class="select">
+            <select class="hide-select" id="myselect">
+                <option value="login"><a id="login" class="logine" href="{% url 'login'%}">Login</a></option>
+                <option value="register"><a class="login" href="{% url 'login'%}">Register</a></option>
+                <option value="account"><a class="login" href="#">My Account</a></option>
+            </select>
+             </div>
+        </li>
+          
+                {%endif%}
+    <!-------------------------------------------------------------------------------------------------------------------------------End of authentication-->
+    <li>
+        <a class="btn btn-success btn-sm ml-3" href="{%url 'cart'%}">
+            <i class="fa fa-shopping-cart "></i>
+            <span class="badge badge-light">{{cartitems}}</span>
+        </a>
+    </li>
+    <style>
+        
+    </style>
+    <!----------------------------------------->
+    <li class="help"><a href="{% url 'help'%}">Help</a></li>
+             
+            </ul>
+        </nav>
+    </header>
+  
+    <!------------------------------------------------------------------------------------------------------------------------Implementing the sidecart-->
+ 
+    {%block content%}
+    {%endblock content%}
+
+    <!---------------------------------------------------------------------------------------------Implementing the footer-->
+    <footer class="center">
+        <div class="sections ">
+
+            <div class="footer-section one">
+                <h3>CONTACT US</h3>
+                <ul>
+                    <li>0000000000000000</li>
+                    <li>9098989238932323</li>
+                    <li>umojawater@gmail.com</li>
+                </ul>
+            </div>
+            <div class="footer-section two">
+                <h3>OPENING HOURS</h3>
+                <ul>
+                    <li>WEEKDAYS: 8:00AM TO 6:00PM</li>
+                    <li>SATURDAY/hOLIDAYS: 8:00AM: 2:00PM</li>
+                    <li>SUNDAY- 2:00PM: TO 6:00PM</li>
+                </ul>
+            </div>
+            <div class="footer-section three">
+                <h3>JOIN US ON</h3>
+                <ul>
+                    <li>Facebook<i class="fa fa-facebook-square" aria-hidden="true"></i></i></li>
+                    <li>Instagram</li>
+                    <li>Instagram</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="end-footer">
+
+            <div class="copy">Copyright &copy;2021 All rights reserved </div>
+        </div>
+
+    </footer>
+
+    <!--Bootstrap javascript-->
+    <!-- jQuery first, --------------------------------------------------------------------------------------->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <!---------------- Popper.js,------------------------------------------------------------------------------------------------------------------------------------>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <!----------------- then Bootstrap JS---------------------------------------------------------------------------------------------------------------------------------->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="{%static 'vendor/animsition/js/animsition.min.js' %}"></script>
+
+    <!--===============================================================================================-->
+    <!-----------------------------------script------------------------------------>
+<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+   <script src="{% static 'js/main.js' %}"></script>
+   <script src="{% static 'js/waterproduct.js' %}"></script>
+
+</body>
+</html>
+
+
+<!--   <main>
+      
+<aside class="cart-sidebar trans-0-4" id="cart-bar">
+
+    <button class="btn-hide-sidebar ti-close color0-hov trans-0-4">X</button>
+    <h3 class="cart-heading">Cart items :</h3>
+    <div class="cart-row">
+        <span class="cart-book cart-header cart-column">BOOK</span>
+        <span class="cart-book cart-header cart-column">QUANTITY</span>
+        <span class="cart-book cart-header cart-column">PRICE</span>
+    </div>
+    <div class="cart-items">
+        <div class="cart-row">
+            <span class="cart-book cart-b">
+                <img class="cart-image" src="images/waterjerrican.jpg" width="100px" height="100px">
+                <div class="cart-book-title">Maniax</div>
+            </span>
+
+            <span class="cart-quantity cart-column">
+                <input type="number" value="1" class="cart-quantity-input">
+
+            </span>
+            <span class="price-cancel">
+                <div class="cart-price">Ksh.20</div>
+                <button class="btn btn-danger" type="button">X</button>
+            </span>
+        </div>
+    </div>
+    <div class="cart-total center">
+        <Strong class="cart-total-title">Total:</Strong>
+        <span class="cart-total-price">Ksh.20</span>
+
+    </div>
+    <button class="btn btn-purchase" type="button">CHECK-OUT</button>
+    </div>
+
+</aside>
+
+</section>
+</main>
+-->

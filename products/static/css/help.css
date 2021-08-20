@@ -1,0 +1,30 @@
+.return {
+  height: 720px;
+  margin: 5%;
+}
+.hold {
+  background-color: green;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.two-sections {
+  background-color: red;
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+  margin-left: 2.5%;
+}
+.east,
+.west {
+  width: 40%;
+  min-height: 300px;
+}
+.east {
+  background-color: green;
+  margin-right: 10px;
+}
+.west {
+  background-color: yellow;
+}
