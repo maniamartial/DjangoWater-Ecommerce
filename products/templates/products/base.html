@@ -12,8 +12,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
     <!--===============================================================================================-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <!--===============================================================================================-->
@@ -30,6 +33,7 @@
     <link rel="stylesheet" href="{% static 'css/watersample.css' %}">
     <link rel="stylesheet" href="{% static 'css/authenticating.css' %}">
     <link rel="stylesheet" href="{% static 'css/singleProduct.css' %}">
+    <link rel="stylesheet" href="{% static 'css/payment.css' %}">
     <!-------------------------------------------------------------------------------------------------------------------------------------------------->
 <script type="text/javascript">
 //Used to find the current user of teh site
@@ -75,17 +79,27 @@
                         <div class="bars"></div></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li><a class="dropdown-item" href="{%url 'waters%'}">Waters</a></li>
+                            <li><a class="dropdown-item" href="{%url 'products'%}">Water Products</a></li>
+                            <li><a class="dropdown-item" href="{%url 'services'%}">Water Services</a></li>
+                            <li><a class="dropdown-item" href="{%url 'fun'%}">Water Games and Fun</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">Separated link</a></li>
+                          
                         </ul>
                     </h2>
                 </li>
-
+<style>
+    .dropdown-item{
+        font-size: 17px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: black;
+    }
+    .dropdown-item:hover{
+        background-color: lightblue;
+    }
+</style>
                 <!------------------------------------------------------------------------------------------------------------Logo name-->
                 <li class="logoname"><a href="{% url 'home' %}">
                         <h1>WODE</h1>
@@ -181,9 +195,9 @@
             <div class="footer-section three">
                 <h3>JOIN US ON</h3>
                 <ul>
-                    <li>Facebook<i class="fa fa-facebook-square" aria-hidden="true"></i></i></li>
-                    <li>Instagram</li>
-                    <li>Instagram</li>
+                    <li><i class="fa fa-facebook-square" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-instagram" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-twitter" aria-hidden="true"></i></li>
                 </ul>
             </div>
         </div>
@@ -208,6 +222,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!--===============================================================================================-->
     <script type="text/javascript" src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
     <!--===============================================================================================-->
@@ -218,6 +234,7 @@
 <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
    <script src="{% static 'js/main.js' %}"></script>
    <script src="{% static 'js/waterproduct.js' %}"></script>
+<script src="{% static 'js/payment.js' %}"></script>
 
 </body>
 </html>

@@ -1,5 +1,5 @@
 from django.core import paginator
-from products.models import Category, Order, OrderItem, Product, Water_Services, Water_Types, water_categories, water_services_category
+from products.models import Category, Order, OrderItem, Product, ShippingAddress, Water_Services, Water_Types, water_categories, water_services_category
 from django.contrib.auth import login
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -9,6 +9,8 @@ from django.db.models import Prefetch
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import JsonResponse
 import json
+
+import datetime
 
 
 def home(request):
@@ -111,8 +113,8 @@ def search(request):
         Service_categories = water_services_category.objects.filter(
             name__contains=search)
 
-    #q = request.POST['q']
-    #data = Category.objects.filter(name__icontains=q).order_by('-id')
+    # q = request.POST['q']
+    # data = Category.objects.filter(name__icontains=q).order_by('-id')
         return render(request, "products/search.html", {'search': search,
                                                         'categories': categories,
                                                         'Water_Categories': Water_Categories,
@@ -137,6 +139,7 @@ def userCart(request):
     return render(request, 'products/cart.html', context)
 
 
+@login_required
 def checkout(request):
     if request.user.is_authenticated:
         customer = request.user
@@ -170,28 +173,94 @@ def AllProducts(request):
     return render(request, "products/AllProducts.html", context)
 
 
+def userCart(request):
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartitems = order.get_cart_items
+    else:
+        items = []
+        order = {' get_cart_total': 0, 'get_cart_items': 0}
+        cartitems = order['get_cart_items']
+    context = {'items': items, 'order': order, 'cartitems': cartitems}
+    return render(request, 'products/cart.html', context)
+
+
 def updateItem(request):
+    '''  try:
+          data = json.loads(request.body)
+      except json.decoder.JSONDecodeError as e:
+          if not e.doc:
+              raise ValueError('Empty response.')
+          else:
+              raise ValueError(
+                  f"Decoding error at char {e.pos} (line {e.lineno}, col {e.colno}): '{e.doc}'")'''
+    # requests.models.PreparedRequest.prepare_headers
+    print('Data: is this', request.body)
     data = json.loads(request.body)
     productId = data['productId']
     action = data['action']
     print('Action', action)
-    print('Product:', productId)
+    print('productId:', productId)
 
     customer = request.user
     product = Product.objects.get(id=productId)
+    waters = Water_Types.objects.get(id=productId)
+    services = Water_Services.objects.get(id=productId)
     order, created = Order.objects.get_or_create(
-        customer=customer)
+        customer=customer, complete=False)
 
     orderitem, created = OrderItem.objects.get_or_create(
-        order=order, product=product)
+        order=order, product=product, waters=waters, services=services)
 
-    if action == 'add':
-        orderitem.quantity = (orderitem.quantity+1)
-    elif action == 'remove':
+    if action == 'remove':
         orderitem.quantity = (orderitem.quantity-1)
+        print("Removed")
+
+    elif action == 'add':
+        orderitem.quantity = (orderitem.quantity+1)
     orderitem.save()
 
     if orderitem.quantity <= 0:
         orderitem.delete()
 
     return JsonResponse('It was added', safe=False)
+
+
+def paymentmethods(request):
+    return render(request, "products/payment.html")
+
+
+# Last recap of Order procesing
+def processOrder(request):
+    transaction_id = datetime.datetime.now().timestamp()
+    data = json.loads(request.body)
+    print(data)
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
+        total = order.get_cart_totals
+        order.transaction_id = transaction_id
+
+        if total == order.get_cart_totals:
+            order.complete = True
+        order.save()
+
+        if order.shipping == True:
+            print("Wrong")
+            ShippingAddress.objects.create(
+                customer=customer,
+                order=order,
+                firstname=data['shipping']['firstname'],
+                lastname=data['shipping']['lastname'],
+                address=data['shipping']['address'],
+                city=data['shipping']['city'],
+                zipcode=data['shipping']['zipcode']
+            )
+    else:
+        print("User doesn't exist")
+    print('Data:', request.body)
+    return JsonResponse('Payment Submitted', safe=False)

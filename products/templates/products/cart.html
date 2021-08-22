@@ -32,10 +32,11 @@
                             <td>
                                 <p class="quantity">{{item.quantity}}</p>
                                 <div class="quantity">
-                                    <img data=product={{item.product.id}} data-action="add" class="chg-quantity update-cart" src="{% static 'images/arrow up.jpg">
-
-                                    <img data=product={{item.product.id}} data-action="remove" class="chg-quantity update-cart"
-                                        src="{% static 'images/arrow down.jpg">
+                                  
+  <img data-product={{item.product.id}} data-action="add" class="chg-quantity update-cart" src="{% static 'images/arrow_up.jpg' " alt="P">
+                                  
+  <img data-product={{item.product.id}} data-action="remove" class="chg-quantity update-cart"
+                                        src="{% static 'images/arrow_down.jpg' " alt="P">
                                 </div>
                             </td>
                             <td><input class="form-control cart-quantity-input" type="text" value="{{item.quantity}}" /></td>

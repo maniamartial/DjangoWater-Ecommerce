@@ -1,4 +1,5 @@
 {% extends 'users/userbase.html' %}
+{%block content%}
 <tr>
     <td colspan="3">
         <div class="remember-forgotten">
@@ -40,10 +41,10 @@
         <h5><a href="{%url 'address'%}">Address book</a></h5>
         <hr>
         <div>
-            <h5>{{user.f_name}}+{{user.l_name}}</h5>
-            <p>{{user.address1}}<br>
-            {{user.city}}<br/>
-        {{user.phone}}</p>
+            <h5>{{ShippingAddress.firstname}}+{{user.l_name}}</h5>
+            <p>{{ShippingAddress.address}}<br>
+            {{shipping.city}}<br/>
+        {{shipping.phone}}</p>
         </div>
     </div>
     </div>
@@ -52,8 +53,8 @@
 <style>
   
 </style>
-{% endblock content%}
 
+{% endblock content%}
 <div class="media">
     <img class="rounded-circle account-img" src="{{user.profile.image.url}}">
     <div class="media-body">

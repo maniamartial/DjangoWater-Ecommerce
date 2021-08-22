@@ -38,5 +38,7 @@ for(i=0; i< updateBtns.length;i++){
                    console.log('data',data)
                    location.reload()
                })
+               
 
     }
+    
