@@ -33,9 +33,24 @@ def waterSamples(request):
         categories = paginator.page(1)
     except EmptyPage:
         categores = paginator.page(paginator.num_pages)
+
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartitems = order.get_cart_items
+    else:
+        items = []
+        order = {' get_cart_total': 0, 'get_cart_items': 0}
+        cartitems = order['get_cart_items']
+
+    waters = Water_Types.objects.all()
+
     context = {
-        'categories': categories
+        'categories': categories, 'waters': waters, 'cartitems': cartitems
     }
+
     return render(request, "products/waterSamples.html", context)
 
 
@@ -54,8 +69,22 @@ def waterServices(request):
         categories = paginator.page(1)
     except EmptyPage:
         categores = paginator.page(paginator.num_pages)
+
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartitems = order.get_cart_items
+    else:
+        items = []
+        order = {' get_cart_total': 0, 'get_cart_items': 0}
+        cartitems = order['get_cart_items']
+
+    waterservices = Water_Services.objects.all()
+
     context = {
-        'categories': categories
+        'categories': categories, 'waterservicess': waterservices, 'cartitems': cartitems
     }
     return render(request, "products/waterServicesPage.html", context)
 
@@ -75,10 +104,40 @@ def waterProducts(request):
         categories = paginator.page(1)
     except EmptyPage:
         categores = paginator.page(paginator.num_pages)
+
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartitems = order.get_cart_items
+    else:
+        items = []
+        order = {' get_cart_total': 0, 'get_cart_items': 0}
+        cartitems = order['get_cart_items']
+
+    waters = Water_Types.objects.all()
     context = {
-        'categories': categories
+        'categories': categories, 'waters': waters, 'cartitems': cartitems
     }
     return render(request, "products/WaterProductPage.html", context)
+
+
+def AllProducts(request):
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartitems = order.get_cart_items
+    else:
+        items = []
+        order = {' get_cart_total': 0, 'get_cart_items': 0}
+        cartitems = order['get_cart_items']
+
+    allproducts = Product.objects.all()
+    context = {'allproducts': allproducts,  'cartitems': cartitems}
+    return render(request, "products/AllProducts.html", context)
 
 
 @login_required
@@ -123,6 +182,7 @@ def search(request):
         return render(request, "products/search.html", {})
 
 
+'''''
 @login_required
 def userCart(request):
     if request.user.is_authenticated:
@@ -137,6 +197,7 @@ def userCart(request):
         cartitems = order['get_cart_items']
     context = {'items': items, 'order': order, 'cartitems': cartitems}
     return render(request, 'products/cart.html', context)
+'''
 
 
 @login_required
@@ -154,23 +215,6 @@ def checkout(request):
         cartitems = order['get_cart_items']
     context = {'items': items, 'order': order, 'cartitems': cartitems}
     return render(request, 'products/checkout.html', context)
-
-
-def AllProducts(request):
-    if request.user.is_authenticated:
-        customer = request.user
-        order, created = Order.objects.get_or_create(
-            customer=customer, complete=False)
-        items = order.orderitem_set.all()
-        cartitems = order.get_cart_items
-    else:
-        items = []
-        order = {' get_cart_total': 0, 'get_cart_items': 0}
-        cartitems = order['get_cart_items']
-
-    allproducts = Product.objects.all()
-    context = {'allproducts': allproducts,  'cartitems': cartitems}
-    return render(request, "products/AllProducts.html", context)
 
 
 def userCart(request):
@@ -208,7 +252,7 @@ def updateItem(request):
     customer = request.user
     product = Product.objects.get(id=productId)
     waters = Water_Types.objects.get(id=productId)
-    services = Water_Services.objects.get(id=productId)
+    services = Water_Services.objects.get(id=productId),
     order, created = Order.objects.get_or_create(
         customer=customer, complete=False)
 
