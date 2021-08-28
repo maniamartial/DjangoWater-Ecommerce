@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.admin.decorators import register
 
 # Register your models here.
-from .models import Category, Order, OrderItem, Product, ShippingAddress, Water_Services, Water_Types, water_categories, water_services_category
+from .models import Category, Order, OrderItem, Product, ShippingAddress
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -21,12 +21,12 @@ admin.site.register(Product, ProductAdmin)
 admin.site.register(Category)
 
 # Registering the water categories
-admin.site.register(water_categories)
+'''admin.site.register(water_categories)
 admin.site.register(Water_Types)
 
 # Registering the services
 admin.site.register(water_services_category)
-admin.site.register(Water_Services)
+admin.site.register(Water_Services)'''
 
 admin.site.register(Order)
 admin.site.register(OrderItem)

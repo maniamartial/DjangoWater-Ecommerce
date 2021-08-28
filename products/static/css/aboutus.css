@@ -1,0 +1,132 @@
+.center {
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  justify-content: center;
+}
+.teamheader {
+  word-spacing: 5px;
+  font-family: Montserrat;
+  font-size: 45px;
+  color: rgb(248, 41, 4);
+  margin: 20px;
+}
+.teamdiv {
+  background: linear-gradient(to right, #ffd700, white, #9f94e0);
+}
+
+.team1 {
+  display: block;
+
+  height: fit-content;
+  width: 250px;
+  margin: 5px;
+  margin-left: 10%;
+}
+.image {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  background-color: black;
+}
+.image1 {
+  border-radius: 50%;
+}
+
+/*Creating the slides*/
+.slider-container {
+  width: 100%;
+  height: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  text-align: center;
+}
+
+.teamrow {
+  margin: 0px;
+  width: 4650px;
+  display: flex;
+  height: 400px;
+  position: relative;
+  transition: left 4s;
+  -webkit-transition: left 2s;
+  -moz-transition: left 2s;
+  -o-transition: left 2s;
+}
+.row1 {
+  width: 1550px;
+  display: flex;
+  margin: 0px;
+  padding: 0px;
+}
+.button-container {
+  margin-top: -25px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  margin-bottom: 20px;
+}
+.slider-button {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  border: 2px rgb(48, 33, 33) solid;
+  border-radius: 20px;
+  background-color: white;
+  margin-left: 20px;
+}
+.slider-button:hover {
+  border: 2px white solid;
+  background-color: rgb(51, 32, 32);
+}
+
+#slider-image-1:target ~ .teamrow {
+  left: 0px;
+}
+#slider-image-2:target ~ .teamrow {
+  left: -1550px;
+}
+#slider-image-3:target ~ .teamrow {
+  left: -3100px;
+}
+@media (max-width: 1024px) {
+  .team1 {
+    margin-left: 5%;
+  }
+}
+@media (max-width: 800px) {
+  .row2 {
+    visibility: false;
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  .team1 {
+    display: block;
+
+    height: fit-content;
+    width: 150px;
+    margin: 5px;
+    margin-left: 2%;
+  }
+  .image {
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    background-color: black;
+  }
+  .button-container {
+    margin-top: -100px;
+  }
+}
+@media (max-width: 311px) {
+  .image {
+    height: 80px;
+    width: 80px;
+  }
+  .team1 {
+    width: 100px;
+  }
+}

@@ -44,7 +44,7 @@
     <!-------------------------------------------------------------------------------------------------------Specific products in single category Products-wrap-->
     <div class="specific-product-wrap specific-product-wrap-cooler">
 
-        {% for product in category.water_types_set.all %}
+        {% for product in category.product_set.all %}
         <a href="{%url 'product' product.pk%}">
             <div class="specific-single-product">
                 <div class="product-image center">

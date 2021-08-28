@@ -30,53 +30,6 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
-# Initializing the Water Categories to be sold
-
-
-class water_categories(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-
-class Water_Types(models.Model):
-    image = models.ImageField(null=False, blank=False)
-    title = models.CharField(max_length=2000, null=False, blank=False)
-    category = models.ForeignKey(
-        water_categories, on_delete=models.CASCADE, default=True, null=False)
-    price = models.DecimalField(max_digits=5, decimal_places=2)
-    description = models.TextField()
-    delivery_time = models.DateTimeField(default=datetime.now, blank=True)
-    is_published = models.BooleanField(default=True)
-    created_at = models.DateTimeField(default=datetime.now, blank=True)
-    digital = models.BooleanField(default=False, null=True, blank=False)
-
-    def __str__(self):
-        return self.title
-
-
-# Initializing Service Categories
-class water_services_category(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-
-class Water_Services(models.Model):
-    image = models.ImageField(null=False, blank=False)
-    title = models.CharField(max_length=2000, null=False, blank=False)
-    category = models.ForeignKey(
-        water_services_category, on_delete=models.CASCADE, default=True, null=False)
-    price = models.DecimalField(max_digits=5, decimal_places=2)
-    description = models.TextField()
-    is_published = models.BooleanField(default=True)
-    created_at = models.DateTimeField(default=datetime.now, blank=True)
-    digital = models.BooleanField(default=False, null=True, blank=False)
-
-    def __str__(self):
-        return self.title
 
 
 class Order(models.Model):
@@ -112,12 +65,7 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    product = models.ForeignKey(
-        Product, on_delete=models.SET_NULL, null=True)
-    waters = models.ForeignKey(
-        Water_Types, on_delete=models.SET_NULL, null=True)
-    services = models.ForeignKey(
-        Water_Services, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)

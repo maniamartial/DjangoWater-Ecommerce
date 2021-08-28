@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="{% static 'css/authenticating.css' %}">
     <link rel="stylesheet" href="{% static 'css/singleProduct.css' %}">
     <link rel="stylesheet" href="{% static 'css/payment.css' %}">
+        <link rel="stylesheet" href="{% static 'css/aboutus.css' %}">
     <!-------------------------------------------------------------------------------------------------------------------------------------------------->
 <script type="text/javascript">
 //Used to find the current user of teh site
@@ -79,8 +80,8 @@
                         <div class="bars"></div></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{%url 'waters'%}">Waters</a></li>
-                            <li><a class="dropdown-item" href="{%url 'products'%}">Water Products</a></li>
+                            <li><a class="dropdown-item btn btn-info-outline" href="{%url 'waters'%}">Waters</a></li>
+                            <li><a class="dropdown-item btn btn-info " href="{%url 'products'%}">Water Products</a></li>
                             <li><a class="dropdown-item" href="{%url 'services'%}">Water Services</a></li>
                             <li><a class="dropdown-item" href="{%url 'fun'%}">Water Games and Fun</a></li>
                             <li>
@@ -95,6 +96,7 @@
         font-size: 17px;
         font-family: Arial, Helvetica, sans-serif;
         color: black;
+        font-style: normal;
     }
     .dropdown-item:hover{
         background-color: lightblue;
@@ -118,13 +120,7 @@
                 </li>
           <!-------------------------------------------------------------------------------------------------------End of search -->
                   
-                <style>
-                
-                    .input-group{
-                        background-color: green;
-                        margin-top: -50px;
-                    }      
-                </style>
+            
 
                 <!------------------------------------------------------------------------------------------------------Dealing with authentication-->
                 {%if user.is_authenticated %}
@@ -142,15 +138,30 @@
          <li class="accounts">
              <div class="select">
             <select class="hide-select" id="myselect">
-                <option value="login"><a id="login" class="logine" href="{% url 'login'%}">Login</a></option>
-                <option value="register"><a class="login" href="{% url 'login'%}">Register</a></option>
-                <option value="account"><a class="login" href="#">My Account</a></option>
+                <option value=""><a id="login" class="logine" >Account</a></option>
+                <option value="login"><a id="login" class="logine btn-lg btn-info-outline" href="{% url 'login'%}">Login</a></option>
+                <option value="register"><a class="login btn-danger" href="{% url 'login'%}">Register</a></option>
+                <option value="account"><a class="login btn btn-info-outline" href="#">My Account</a></option>
+                <option value="" class="hide-small-media"><a href="{% url 'help'%}">Help</a></option>
+                <option value="" class="hide-small-media">
+                    <a class="btn btn-success btn-sm ml-3" href="{%url 'cart'%}">
+                        <i class="fa fa-shopping-cart "></i>
+                        <span class="badge badge-light">{{cartitems}}</span>
+                    </a>
+                </option>
             </select>
              </div>
         </li>
           
                 {%endif%}
     <!-------------------------------------------------------------------------------------------------------------------------------End of authentication-->
+        <style>
+            .input-group {
+                background-color: green;
+                margin-top: -50px;
+            }
+       
+        </style>
     <li>
         <a class="btn btn-success btn-sm ml-3" href="{%url 'cart'%}">
             <i class="fa fa-shopping-cart "></i>
@@ -161,7 +172,7 @@
         
     </style>
     <!----------------------------------------->
-    <li class="help"><a href="{% url 'help'%}">Help</a></li>
+    <li class="help hide-small"><a href="{% url 'help'%}">Help</a></li>
              
             </ul>
         </nav>

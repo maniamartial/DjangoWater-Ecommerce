@@ -1,8 +1,8 @@
 .sproduct-position {
-  background-color: white;
   display: flex;
   flex-wrap: wrap;
   min-height: 600px;
+  background-color: white;
 }
 
 .sproduct {
@@ -17,7 +17,7 @@
   margin-left: 5%;
   background-color: rgb(212, 238, 238);
   box-sizing: border-box;
-  height: fit-content;
+  height: 100%;
 }
 .wrap-single-product-s {
   display: flex;
@@ -30,10 +30,13 @@
   width: 300px;
   padding: 15px;
 }
-.details {
-  margin-top: 10%;
+.details-single {
+  margin-top: 4%;
+
+  margin-bottom: 30px;
+  width: 100%;
 }
-.details h4,
+.details-single h4,
 .specification h4 {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 25px;
@@ -42,10 +45,13 @@
   width: 60%;
 }
 .more-detail-s {
-  margin-top: 10%;
+  margin-top: 2%;
 }
 .more-detail-s h4 {
   font-size: 22px;
+}
+.AddToCart {
+  background-color: lightblue;
 }
 .spec i {
   font-size: 16px;
