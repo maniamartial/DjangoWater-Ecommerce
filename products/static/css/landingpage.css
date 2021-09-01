@@ -8,7 +8,6 @@
 }
 .wrap-sections {
   width: 100%;
-
   font-family: "Playfair Display", serif;
   position: fixed;
   bottom: 0;
@@ -28,9 +27,20 @@
   max-height: 701px;
   width: 25%;
   background-color: lightblue;
-  border: 3px rgb(5, 115, 151) solid;
-  box-shadow: 5px 5px rgb(8, 144, 189);
-  border-radius: 5px;
+
+  border-radius: 25px;
+}
+.submission-form {
+  margin-top: 50px;
+}
+.menus {
+  text-decoration: none;
+  margin-top: 50px;
+}
+li {
+  list-style-type: none;
+  list-style: none;
+  margin-left: 5%;
 }
 .center {
   justify-content: center;
@@ -40,18 +50,21 @@
 }
 .section-one {
   margin-right: 1%;
+  border: 3px rgb(5, 115, 151) solid;
+  box-shadow: 5px 5px rgb(8, 144, 189);
 }
 .section-two {
   display: block;
   padding-right: 2.5%;
   padding-left: 2.5%;
+  background-color: white;
 }
 .category {
   box-sizing: border-box;
+  border-radius: 25px;
   height: 20%;
   width: 95%;
   background-color: rgb(129, 203, 228);
-  border: 10px rgb(11, 179, 235) solid;
   margin-bottom: 15px;
   padding: 15px;
 }

@@ -55,7 +55,7 @@ def waterSamples(request):
 
 # Different Water Services
 def waterServices(request):
-    categories = categories = Category.objects.filter(
+    categories = Category.objects.filter(
         name__startswith="Services")
     page_num = request.GET.get("page")
     paginator = Paginator(categories, 3)
@@ -134,7 +134,6 @@ def funAndGames(request):
 
 def productDetail(request, pk):
     eachProduct = Product.objects.get(id=pk)
-
     if request.user.is_authenticated:
         customer = request.user
         order, created = Order.objects.get_or_create(
@@ -145,9 +144,11 @@ def productDetail(request, pk):
         items = []
         order = {' get_cart_total': 0, 'get_cart_items': 0}
         cartitems = order['get_cart_items']
+
     context = {
-        'cartitem': cartitems,
+        'cartitems': cartitems,
         'eachProduct': eachProduct,
+
     }
     return render(request, 'products/singleProduct.html', context)
 
@@ -166,11 +167,16 @@ def search(request):
         product = Product.objects.filter(title__contains=search)
     # q = request.POST['q']
     # data = Category.objects.filter(name__icontains=q).order_by('-id')
-        customer = request.user
-        order, created = Order.objects.get_or_create(
-            customer=customer, complete=False)
-        items = order.orderitem_set.all()
-        cartitems = order.get_cart_items
+        if request.user.is_authenticated:
+            customer = request.user
+            order, created = Order.objects.get_or_create(
+                customer=customer, complete=False)
+            items = order.orderitem_set.all()
+            cartitems = order.get_cart_items
+        else:
+            items = []
+            order = {' get_cart_total': 0, 'get_cart_items': 0}
+            cartitems = order['get_cart_items']
         context = {
             'search': search,
             'categories': categories,
@@ -237,6 +243,10 @@ def updateItem(request):
         orderitem.quantity = (orderitem.quantity-1)
         print("Removed")
 
+    elif action == 'remove-completely':
+        orderitem.quantity = (orderitem.quantity == 0)
+        print("Removed from cart")
+
     elif action == 'add':
         orderitem.quantity = (orderitem.quantity+1)
     orderitem.save()
@@ -247,12 +257,12 @@ def updateItem(request):
     return JsonResponse('It was added', safe=False)
 
 
-# Integrating the site with Mpesa and paypal payyment methods3
+# Integrating the site with Mpesa and paypal payment methods3
 def paymentmethods(request):
     return render(request, "products/payment.html")
 
 
-# Last recap of Order procesing
+# Last recap of Order processing
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)

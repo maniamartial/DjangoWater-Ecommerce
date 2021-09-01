@@ -47,16 +47,30 @@
     <marquee scrollamount="20">
         <h1><a href="waterSamples.html">WODE</a> </h1>
     </marquee>
-    <button id="display-menu-button">
+    <!--<button id="display-menu-button">
         <div class="hidden-menu" id="hidden-menu">
             <div class="stick"></div>
             <div class="stick"></div>
             <div class="stick"></div>
         </div>
 
-    </button>
-    <div class="list-menu" id="list-menu">
-        <ul>
+    </button>-->
+
+    <!-------------------------------------------------------------------------------------------------------------------------------------Implementing the search bar-->
+    <form class="form-inline my-2 my-lg-0  submission-form" method="POST" action="{%url 'search'%}">
+        {%csrf_token%}
+        <div class="input-group mb-3">
+            <input type="search" name="q" class="form-control" placeholder="Search">
+            <div class="input-group-append">
+                <button type="submit" class="input-group-text" id="basic-addon2"
+                    style="background-color: gold;">Search</button>
+            </div>
+        </div>
+    </form>
+    <!------------------------------------------------------End of search-->
+
+    <div>
+        <ul class="menus">
             <!--------------------------------------------------------------------------------------------------------Authentication of the user-->
             {%if user.is_authenticated %}
             <li>
@@ -86,18 +100,7 @@
         </ul>
     </div>
    
-<!-------------------------------------------------------------------------------------------------------------------------------------Implementing the search bar-->
-<form class="form-inline my-2 my-lg-0" method="POST" action="{%url 'search'%}">
-    {%csrf_token%}
-    <div class="input-group mb-3">
-        <input type="search" name="q" class="form-control" placeholder="Search">
-        <div class="input-group-append">
-            <button type="submit" class="input-group-text" id="basic-addon2"
-                style="background-color: gold;">Search</button>
-        </div>
-    </div>
-</form>
-    <!------------------------------------------------------End of search-->
+
     <style>
         .form-inline{
             margin-left: -50px;

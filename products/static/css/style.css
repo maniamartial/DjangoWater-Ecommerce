@@ -137,7 +137,6 @@ footer {
   margin-top: 10px;
 }
 .end-footer {
-  margin-bottom: 50px;
   margin-top: -5px;
 }
 .footer-section {
@@ -221,6 +220,13 @@ footer {
 }
 
 @media (max-width: 576px) {
+  .body-section {
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+  header {
+    margin-top: 5px;
+  }
   .sidebar {
     width: 300px;
   }
@@ -502,3 +508,28 @@ h5 {
 }
 
 /*Payment form*/
+
+/*Cart styling buttons*/
+.chg-quantity {
+  width: 20px;
+}
+.chg-quantity div:first-child {
+  margin-top: -10px;
+}
+.quantity-images {
+  display: flex;
+  background-color: white;
+}
+.chg-quantity div:first-child {
+  margin-top: -10px;
+  background-color: red;
+}
+.quantity-images div:first-child {
+  margin-right: 20px;
+}
+.quantity {
+  margin-bottom: 20px;
+}
+.quantity-updates {
+  margin-top: -10px;
+}

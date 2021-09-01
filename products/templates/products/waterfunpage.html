@@ -1,0 +1,197 @@
+<!-- TESTIMONIALS -->
+
+{% extends 'products/base.html' %}
+
+{% block content %}
+{%load static%}
+<section class="testimonials">
+    <div id="customers-testimonials" class="owl-carousel">
+
+        <!--TESTIMONIAL 1 -->
+        <div class="item">
+
+            <div class="shadow-effect">
+                <img class="pull-right"
+                    src="{% static 'images/arrow_up.jpg' %}"  alt="">
+                <div class="slider-caption">
+                    <div class="top-caption">
+                        <h2>welcome to</h2>
+                    </div>
+                    <div class="middle-caption">
+                        <h2>Eatingdive</h2>
+                    </div>
+                    <div class="bottom-caption">
+                        <h2>restaurent</h2>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--END OF TESTIMONIAL 1 -->
+        <!--TESTIMONIAL 2 -->
+        <div class="item">
+
+            <div class="shadow-effect">
+                <img class="pull-right"
+                    src="{% static 'images/boilers-sliders' %}" alt="">
+                <div class="slider-caption slider-caption2">
+                    <div class="top-caption">
+                        <h2>welcome to</h2>
+                    </div>
+                    <div class="middle-caption">
+                        <h2>Eatingdive</h2>
+                    </div>
+                    <div class="bottom-caption">
+                        <h2>restaurent</h2>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--END OF TESTIMONIAL 2 -->
+
+
+    </div>
+</section>
+
+<style>
+    .testimonials{
+        height: 700px;
+        width: 100%;
+    }
+    .slider-caption{
+	position: absolute;
+	width: 40%;
+	left: 10%;
+	top: 10%;
+	text-align: center;
+    }
+	.slider-caption h2{
+		color: #fff;
+		text-transform: uppercase;
+		font-size: 60px;
+	}
+	.slider-caption .top-caption{
+		text-align: center;
+    }
+		.slider-caption h2{
+			margin-bottom: -30px;
+			font-family: 'Lora', serif;
+		
+	}
+	.bottom-caption{
+		text-align: center;
+    }
+		.bottom-capttion h2{
+			margin-top: -30px;
+			font-family: 'Lora', serif;
+		
+	}
+	.middle-caption{
+		background-color: rgba(255,255,255,.2);
+		box-shadow: 0px 0px 4px #333;
+		display:inline-block;
+		padding: 30px 50px;
+		text-align: center;
+		position: relative;
+		z-index: 99;
+		width: 80%;
+    }
+		h2{
+			font-family: 'Tangerine', cursive;
+			font-weight: 400;
+			font-size: 90px;
+			line-height: 90px;
+			color: red;
+			text-transform: capitalize;
+		}
+	.middle-caption:before{
+			content: "";
+			position: absolute;
+			left: 50%;
+			top:-60px;
+			width:1px; 
+			height:20px;
+			background-color: red;
+		}
+
+		.middle-caption:after{
+			content: "";
+			position: absolute;
+			left: 50%;
+			bottom:-60px;
+			width:1px; 
+			height:20px;
+			background-color: red;
+	
+}
+.slider-caption2{
+	width: 100%;
+	left: 0;
+	top: 25%;
+}
+	.slider-caption2 .middle-caption{
+		width: 32%;
+	
+}
+.owl-carousel .owl-nav [class*='owl-'] {
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+}
+.owl-carousel .owl-nav [class*='owl-'].disabled:hover {
+  background-color: #D6D6D6;
+}
+.owl-carousel {
+  position: relative;
+}
+.owl-carousel .owl-next,
+.owl-carousel .owl-prev {
+  width: 22px;
+  height: 40px;
+  margin-top: -20px;
+  position: absolute;
+  top: 45%;
+  color: #fff;
+}
+.owl-carousel .owl-prev {
+  left: 10px;
+}
+.owl-carousel .owl-next {
+  right: 10px;
+}
+
+
+
+</style>
+
+<script>
+    jQuery(document).ready(function ($) {
+            "use strict";
+            //  TESTIMONIALS CAROUSEL HOOK
+            $('#customers-testimonials').owlCarousel({
+                loop: true,
+                items: 3,
+                margin: 0,
+                autoplay: true,
+                dots: true,
+                nav: true,
+                autoplayTimeout: 8500,
+                smartSpeed: 450,
+                navText: ['<i class="fa fa-angle-left fa-5x"></i>', '<i class="fa fa-angle-right fa-5x"></i>'],
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    768: {
+                        items: 1
+                    },
+                    1170: {
+                        items: 1
+                    }
+                }
+            });
+        });
+
+</script>
+{% endblock content %}
+<!-- END OF TESTIMONIALS -->

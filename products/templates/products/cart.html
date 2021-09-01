@@ -29,19 +29,19 @@
                             <td><img src="{{item.product.image.url}}" height="100px" width="100px"/> </td>
                             <td class="title">{{item.product.title}}</td>
                             <td>In stock</td>
-                            <td>
-                                <p class="quantity">{{item.quantity}}</p>
-                                <div class="quantity">
+                            <td><div class="quantity-images">
+                                <div class="quantity">{{item.quantity}}</div>
+                                <div class="quantity-updates">
                                   
-  <img data-product={{item.product.id}} data-action="add" class="chg-quantity update-cart" src="{% static 'images/arrow_up.jpg' " alt="P">
-                                  
+  <img data-product={{item.product.id}} data-action="add" class="chg-quantity update-cart" src="{% static 'images/arrow_up.jpg' %}" alt="P">
+                                  <br/>
   <img data-product={{item.product.id}} data-action="remove" class="chg-quantity update-cart"
-                                        src="{% static 'images/arrow_down.jpg' " alt="P">
-                                </div>
+                                        src="{% static 'images/arrow_down.jpg' %}" alt="P">
+                                </div></div>
                             </td>
-                            <td><input class="form-control cart-quantity-input" type="text" value="{{item.quantity}}" /></td>
+  
                             <td class="text-right">Ksh.{{item.product.price}}</td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger"  id="danger-buttons"><i class="fa fa-trash"></i>
+                            <td class="text-right"><button class="btn btn-sm btn-danger chg-quantity update-cart"  id="danger-buttons" data-product={{item.product.id}} data-action="remove-completely"><i class="fa fa-trash"></i>
                                 </button> </td>
                         </tr>
                         {%endfor%}
@@ -94,6 +94,7 @@
             
                 </script>
   
-<!-- Footer -->
+<!-- Footer --
+                              <td><input class="form-control cart-quantity-input" type="text" value="{{item.quantity}}" /></td>>
 {% endblock content %}
 

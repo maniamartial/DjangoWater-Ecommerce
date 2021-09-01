@@ -9,8 +9,13 @@
      
 
         <div class="sproduct">
+            <a class="btn btn-back" href="{%url 'products'%}">&lt;&lt;</a>
+            <div class="center">
+                <h4>Brand Name</h4>
+                <p>Other waters from this brand</p>
+            </div>
             <div class="wrap-single-product-s">
-                <a class="btn btn-back" href="{%url 'products'%}">&lt;&lt;</a>
+               
                 <div class="image-s">
 <img class="product-image-s" src="{{eachProduct.image.url}}"></img>
                 </div>
@@ -18,18 +23,18 @@
 <h4 class="libhead">{{eachProduct.title}}</h4>
 <div>{{eachProduct.description}}</div>
 <div class="price" id="book-price">Ksh.{{eachProduct.price}}</div>
+<div class="price" id="book-price">1 Litre</div>
 <div class="wrap-book-buttons">
-    <button data-product="{{product.id}}" data-action="add" class="AddToCart update-cart btn btn-block" id="addToCart update-cart">Add To
+    <button data-product="{{product.id}}" data-action="add" class="AddToCart update-cart" id="addToCart update-cart">Add To
         Cart</button>
 
 </div>
                </div>
         </div>
         <!-- --------------------------------------------------------------------------------------Descripton of single product-->
-
-        <div class="more-detail-s">
+<div class="container">
+        <div class="more-detail-s container">
             <h4>Product Details</h4>
-            <hr>
             <div>{{eachProduct.description}}</div>
         </div>
         <div class="rating-box">
@@ -39,14 +44,12 @@
             <i class="fa fa-star"></i>
             <i class="fa fa-star-half-empty"></i>
         </div>
+        <hr/>
         <div class="specification">
             <h4>Specifications</h4><hr>
-            <div class="spec"><i>Production Company:  </i>USA</div>
-                <div class="spec"><i>Materials:     </i>Polyviny</div>
-                    <div class="spec"><i>Weight:   </i>2kg</div>
-                        <div class="spec"><i>ShopType :  </i>Wode</div>
-                    <div class="spec"><i>Production Company:  </i>USA</div>
+           
         </div>
+</div>
         </div>
 
         <!------------------------------------------------------------------------------------------------left-bar more details like location, warrants-->
@@ -71,5 +74,8 @@
     
    </section>
 </main>
+<!--
 
+  
+-->
 {% endblock content %}

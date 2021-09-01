@@ -11,7 +11,7 @@
 .sortby {
   width: fit-content;
   float: right;
-  margin-left: 35%;
+  margin-left: 25%;
   padding-top: 5px;
 }
 .sortby select {

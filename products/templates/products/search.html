@@ -6,9 +6,10 @@
         <section class="body-section">
 {% if search %}
             <div class="all-products">
-                <h5 class="text-muted">Search result for {{search}}</h5>
+                <h5 class="alert" style="color: white;">Search result for {{search}}</h5>
               
                 <!-----------------------------------------------------------------------------------------------Display the products -->
+                {%if categories%}
                 {%for category in categories%}
                 
                 <section class="main-products cooler">
@@ -53,47 +54,7 @@
                 </section>
                 {%endfor%}
 
-                {%for category in Water_Categories%}
-                <section class="main-products cooler">
-                    <div class="upper-bar">
-                        <div>
-                            <h2>{{category.name}}</h2>
-                        </div>
-                        <div class="sortby">
-                            <span>Sort By: <select class="sort">
-                                    <option value="highest">Highest Price</option>
-                                    <option value="lowest">Lowest Price</option>
-                                </select></span>
-                        </div>
-                    </div>
-                
-                    <hr />
-                
-                    <!-------------------------------------------------------------------------------------------------------Specific products in single category Products-wrap-->
-                    <div class="specific-product-wrap specific-product-wrap-cooler">
-                
-                        {% for product in category.water_types_set.all %}
-                        <a href="{%url 'product' product.pk%}">
-                            <div class="specific-single-product">
-                                <div class="product-image center">
-                                    <img class="product-image-shape" src="{{product.image.url}}" alt="adamol Distilled" />
-                                </div>
-                                <div class="produc-descriptions">
-                                    <h4 class="specific-product-title">{{product.title}}</h4>
-                                    <p class="one-line-description"></p>
-                                    <p class="price">Ksh.{{product.price}}</p>
-                        </a>
-                        <button type="button" class="AddToCart">Add To Cart</button>
-                    </div>
-                    </div>`
-                
-                    {% empty %}
-                    <p>No Product Lol</p>
-                
-                    {%endfor%}
-                    </div>
-                </section>
-                {%endfor%}
+
                 <!--------------------------------------------End of showing products-->
 
                 <!---------------------------------------------------------------------------------------------Search products-->
@@ -114,7 +75,7 @@
                 
                     <hr />
                 
-                    <!--Single Products-wrap-->
+                    <!--Single Products-wrap ---->
                     <div class="specific-product-wrap specific-product-wrap-cooler">
                 
                         {% for product in category.water_services_set.all %}
@@ -139,6 +100,26 @@
                     </div>
                 </section>
                 {%endfor%}
+                {%else%}
+                <!--Single Products-wrap if the category doesn't exist-->
+                <div class="specific-product-wrap specific-product-wrap-cooler">
+                
+                    {% for product in product %}
+                    <a href="{%url 'product' product.pk%}">
+                        <div class="specific-single-product">
+                            <div class="product-image center">
+                                <img class="product-image-shape" src="{{product.image.url}}" alt="adamol Distilled" />
+                            </div>
+                            <div class="produc-descriptions">
+                                <h4 class="specific-product-title">{{product.title}}</h4>
+                                <p class="one-line-description"></p>
+                                <p class="price">Ksh.{{product.price}}</p>
+                    </a>
+                    <button type="button" class="AddToCart">Add To Cart</button>
+                </div>
+                </div>`
+                {%endfor%}
+                {%endif%}
                 <!--End-->
                 <br />
 
