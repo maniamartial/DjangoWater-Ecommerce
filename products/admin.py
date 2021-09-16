@@ -1,9 +1,10 @@
-from products.views import waterSamples
+
+
 from django.contrib import admin
 from django.contrib.admin.decorators import register
 
 # Register your models here.
-from .models import Category, Order, OrderItem, Product, ShippingAddress
+from .models import Brands, Category, Order, OrderItem, Product, Service, ShippingAddress
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -16,18 +17,17 @@ class ProductAdmin(admin.ModelAdmin):
     #exclude = ('description',)
 
 
+class ServiceAdmin(admin.ModelAdmin):
+    list_display = ('order', 'title', 'location', 'number', 'fee')
+
+
 # Registering the water Products
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category)
+admin.site.register(Brands)
 
-# Registering the water categories
-'''admin.site.register(water_categories)
-admin.site.register(Water_Types)
-
-# Registering the services
-admin.site.register(water_services_category)
-admin.site.register(Water_Services)'''
 
 admin.site.register(Order)
 admin.site.register(OrderItem)
 admin.site.register(ShippingAddress)
+admin.site.register(Service, ServiceAdmin)

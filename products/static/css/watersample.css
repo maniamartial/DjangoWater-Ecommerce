@@ -52,10 +52,12 @@
 .produc-descriptions {
   padding: 10px;
 }
-
+.price {
+  font-size: 20px;
+}
 .produc-descriptions .AddToCart {
   width: 95%;
-  background-color: lightblue;
+  background-color: rgb(133, 209, 235);
   height: 40px;
   border: none;
   border-radius: 3px;
@@ -81,20 +83,40 @@
 }
 
 @media (max-width: 768px) {
-  .sortby {
-  }
 }
 @media (max-width: 550px) {
   .upper-bar {
-    height: 80px;
+    height: 30px;
     margin-right: 5px;
   }
   .sortby {
     margin-left: 0%;
   }
 }
-@media (max-width: 411px) {
+@media (max-width: 415px) {
   .upper-bar div:first-child {
     width: 100%;
+  }
+  .specific-single-product {
+    margin-left: 15px;
+    height: 250px;
+    width: 150px;
+    margin-bottom: 10px;
+  }
+
+  .product-image-shape {
+    height: 150px;
+    width: 130px;
+  }
+  .produc-descriptions {
+    padding: 5px;
+  }
+}
+@media (max-width: 320px) {
+  .specific-single-product {
+    margin-left: 10px;
+    height: 250px;
+    width: 120px;
+    margin-bottom: 20px;
   }
 }

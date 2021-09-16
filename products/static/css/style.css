@@ -25,9 +25,10 @@ h1 {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 h2 {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 35px;
   font-style: oblique;
+  font-style: normal;
 }
 h3 {
   text-underline-position: below;
@@ -181,6 +182,20 @@ footer {
   border-style: none;
   border: none;
   background-color: none;
+}
+footer h3 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 23px;
+  color: red;
+}
+footer li {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+}
+@media (max-width: 500px) {
+  .sections {
+    display: block;
+  }
 }
 @media (max-width: 768px) {
   .sections {
@@ -448,6 +463,21 @@ a .category-head {
   height: 3px;
   background-color: lightblue;
 }
+@media (max-width: 415px) {
+  .wrap-single-book {
+    margin-top: 1%;
+    width: 150px;
+    padding-top: 5px;
+    height: 250px;
+    margin-left: 3px;
+    background-color: red;
+  }
+  .book-image {
+    width: 100px;
+    height: 120px;
+    border-radius: 2px;
+  }
+}
 @media (max-width: 300px) {
   nav ul li input {
     width: 200px;
@@ -532,4 +562,299 @@ h5 {
 }
 .quantity-updates {
   margin-top: -10px;
+}
+
+/*Sliders*/
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: Tahoma, "sans-serif";
+}
+
+/* slider обертка */
+.slider {
+  position: relative;
+  height: 100%;
+  margin-left: 1%;
+  width: 98%;
+  overflow: hidden;
+  background-color: lightblue;
+  border-radius: 10px;
+}
+.slider-image {
+  height: 100%;
+  width: 100%;
+}
+
+/*Окно со слайдами*/
+.slider-content {
+  position: relative;
+  width: 100%;
+}
+
+/*Контейнер для слайдов (передвигаем)*/
+.slider-content-wrapper {
+  display: flex;
+  height: 500px;
+  transition: transform 0.5s ease-in-out;
+}
+
+/*Слайд*/
+.slider-content__item {
+  flex: 1 0 100%;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  font-size: 100px;
+  color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-1 {
+  background-color: #963484;
+}
+.image-2 {
+  background-color: #3066be;
+}
+.image-3 {
+  background-color: #60afff;
+}
+.image-4 {
+  background-color: #28c2ff;
+}
+.image-5 {
+  background-color: #2af5ff;
+}
+.image-6 {
+  background-color: navy;
+}
+
+/* Блок с контролами */
+.slider-controls {
+  padding: 20px;
+  text-align: center;
+}
+
+/* Блок с контролами внутри окна */
+.slider-content__controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  /*transform: translateY(-50%);*/
+  /*padding:0 15px;*/
+}
+
+/* Arrows */
+.prev-arrow,
+.next-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.3);
+  width: 20px;
+  transition: all 0.3s;
+}
+.prev-arrow {
+  left: 20px;
+}
+.next-arrow {
+  right: 20px;
+}
+
+.prev-arrow:hover,
+.next-arrow:hover {
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* Dots */
+.dots {
+  position: absolute;
+  display: flex;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 10%;
+}
+
+.dot {
+  cursor: pointer;
+  width: 8px;
+  height: 8px;
+  margin-right: 4px;
+  background-color: rgba(0, 0, 0, 0.3);
+  /*box-shadow: 0 0 5px 0px rgba(0,0,0,0.9);*/
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.dot:last-child {
+  margin-right: 0;
+}
+.dot:hover {
+  background-color: #fff;
+}
+.dot--active {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  margin-right: 8px;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  background-color: #3066be;
+  color: #fff;
+  transition: all 0.5s;
+}
+button:last-child {
+  margin-right: 0;
+}
+button:hover {
+  background-color: #60afff;
+}
+button:focus {
+  outline: none;
+}
+
+/* Mods */
+.disabled {
+  background-color: #dccfcf;
+  color: #b0a8a8;
+  cursor: default;
+  pointer-events: none;
+}
+
+.d-none {
+  display: none;
+}
+.active {
+  opacity: 1;
+}
+.centered {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container-last {
+  margin-left: 50px;
+}
+.inside-slider {
+  position: absolute;
+  font-size: 50px;
+  color: white;
+}
+.hide-large {
+  display: none;
+}
+
+/*Water service page*/
+.househelp {
+  display: block;
+}
+
+.cleaning {
+  display: none;
+}
+
+.plumbing {
+  display: none;
+}
+
+.construction {
+  display: none;
+}
+
+.forms {
+  max-width: 700px;
+}
+
+.btn-group {
+  margin-right: 5%;
+  margin-top: 2%;
+}
+
+.containers {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.select-service {
+  width: 90%;
+  height: 30px;
+}
+
+/*My water*/
+.gender-select {
+  width: 100%;
+  height: 30px;
+  margin-left: -4px;
+}
+.height {
+  width: 100%;
+  height: 30px;
+}
+
+@media (max-width: 500px) {
+  .news .btn-group {
+    margin-right: 1.5%;
+    margin-top: 1%;
+  }
+  .slider {
+    margin-left: 0%;
+    width: 100%;
+
+    border-radius: 5px;
+  }
+
+  .containers .center {
+    margin-left: -30px;
+    background-color: red;
+  }
+  .btn-toolbar {
+    background-color: green;
+    margin-left: -45px;
+  }
+}
+@media (max-width: 360px) {
+  .btn-toolbar {
+    margin-left: -15px;
+  }
+}
+@media (max-width: 320px) {
+  .btn-toolbar {
+    margin-left: -44px;
+  }
+  .news .btn-group {
+    margin-right: 0.5%;
+    margin-top: 1%;
+  }
+}
+
+@media (max-width: 424px) {
+  header .center {
+    align-items: flex-start;
+    margin-left: 5px;
+    justify-content: flex-start;
+  }
+  .hide-large {
+    display: block;
+    padding-left: 80px;
+    margin-top: 10px;
+  }
+  header {
+    margin-top: 5px;
+    max-height: 130px;
+  }
 }

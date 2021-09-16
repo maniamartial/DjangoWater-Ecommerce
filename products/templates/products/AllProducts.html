@@ -38,11 +38,11 @@
                                 <div class="produc-descriptions">
                                     <h4 class="specific-product-title">{{product.title}}</h4>
                                     <p class="one-line-description"></p>
-                                    <p class="price">Ksh.{{product.price}}</p>
+                                    <div class="price">Ksh.{{product.price}}</div>
                         </a>
                         <button data-product="{{product.id}}" data-action="add" class="AddToCart update-cart" id="addToCart update-cart">Add To Cart</button>
                     </div>
-            </div>`
+            </div>
 
             {% empty %}
             <p>No Product Lol</p>

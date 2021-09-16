@@ -9,13 +9,8 @@
     <title>wodeProject</title>
 
     <!--Slidfers-->
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Tangerine:400,700" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.1/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="http://themes.audemedia.com/html/goodgrowth/css/owl.theme.default.min.css">
-    <link rel="" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+
+
     <!-- Bootstrap CSS -------------------------------------------------------------------------------------------------------------------->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -115,8 +110,14 @@
 </style>
                 <!------------------------------------------------------------------------------------------------------------Logo name-->
                 <li class="logoname"><a href="{% url 'home' %}">
-                        <h1>WODE</h1>
+                        <img class="logo3" src="{% static 'images/logo3.png' %}" alt="P"></a> </h1>
                     </a></li>
+                    <li>
+                        <a class="hide-large btn btn-success btn-sm ml-3" href="{%url 'cart'%}" style="margin-left:50px ;">
+                            <i class="fa fa-shopping-cart "></i>
+                            <span class="badge badge-light">{{cartitems}}</span>
+                        </a>
+                    </li>
 <!-----------------------------------------------------------------------------------------------------------End of logo name-->
 <!------------------------------------------------------------------------------------------------------------Search-->
                 <li>
@@ -130,12 +131,10 @@
                     </div>    </form>
                 </li>
           <!-------------------------------------------------------------------------------------------------------End of search -->
-                  
-            
 
                 <!------------------------------------------------------------------------------------------------------Dealing with authentication-->
                 {%if user.is_authenticated %}
-    <li class="accounts">
+    <li class="accounts hide-small">
             <div class="select">
         <select class="hide-select" id="myselect">
             <option value='profile'><a class="login" >Hi,{{user.username}}</a></option>
@@ -146,7 +145,7 @@
     </li>
  
                 {%else%}
-         <li class="accounts">
+         <li class="accounts hide-small">
              <div class="select">
             <select class="hide-select" id="myselect">
                 <option value=""><a id="login" class="logine" >Account</a></option>
@@ -174,7 +173,7 @@
        
         </style>
     <li>
-        <a class="btn btn-success btn-sm ml-3" href="{%url 'cart'%}">
+        <a class="btn btn-success btn-sm ml-3 hide-small" href="{%url 'cart'%}">
             <i class="fa fa-shopping-cart "></i>
             <span class="badge badge-light">{{cartitems}}</span>
         </a>
@@ -210,7 +209,7 @@
                 <h3>OPENING HOURS</h3>
                 <ul>
                     <li>WEEKDAYS: 8:00AM TO 6:00PM</li>
-                    <li>SATURDAY/hOLIDAYS: 8:00AM: 2:00PM</li>
+                    <li>SATURDAY/HOLIDAYS: 8:00AM: 2:00PM</li>
                     <li>SUNDAY- 2:00PM: TO 6:00PM</li>
                 </ul>
             </div>
@@ -258,7 +257,8 @@
    <script src="{% static 'js/main.js' %}"></script>
    <script src="{% static 'js/waterproduct.js' %}"></script>
 <script src="{% static 'js/payment.js' %}"></script>
-
+<script src="{% static 'js/slider.js' %}"></script>
+<script src="{% static 'js/service.js' %}"></script>
 </body>
 </html>
 

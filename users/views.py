@@ -1,3 +1,4 @@
+from users.decorators import unauthenticated_user
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import Group
 from django.forms.widgets import EmailInput
@@ -10,6 +11,7 @@ from django.contrib import messages
 # Create your views here.
 
 
+@unauthenticated_user
 def Register(request):
     form = CreateUserForm()
     if request.method == "POST":
@@ -25,6 +27,7 @@ def Register(request):
     return render(request, "users/regist.html", context)
 
 
+@unauthenticated_user
 def Login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -76,3 +79,12 @@ def profile(request):
 
     }
     return render(request, 'users/profile.html', context)
+
+
+'''def deleteuser(request):
+    current_user = request.user
+    if request.method == 'POST':
+        current_user.delete()
+        redirect('home')
+    context = {'current_user': current_user}
+    return render(request, 'user/profile.html', context)'''

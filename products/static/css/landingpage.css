@@ -1,6 +1,6 @@
 #myVideo {
   position: fixed;
-  background-color: rgb(43, 81, 94);
+  background-color: lightblue;
   right: 0;
   bottom: 0;
   min-width: 100%;
@@ -11,6 +11,10 @@
   font-family: "Playfair Display", serif;
   position: fixed;
   bottom: 0;
+  height: 98%;
+}
+.submission-form {
+  padding-top: 50%;
 }
 
 .two-long-section {
@@ -20,7 +24,7 @@
   margin-top: 2%;
   padding-left: 5%;
   padding-right: 10%;
-  padding-top: 10%;
+  padding-top: 2%;
 }
 .long-section-wrap {
   height: 700px;
@@ -57,7 +61,6 @@ li {
   display: block;
   padding-right: 2.5%;
   padding-left: 2.5%;
-  background-color: white;
 }
 .category {
   box-sizing: border-box;

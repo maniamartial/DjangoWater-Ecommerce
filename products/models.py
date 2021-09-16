@@ -16,11 +16,19 @@ class Category(models.Model):
         return self.name
 
 
+class Brands(models.Model):
+    name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.name
+
+
 class Product(models.Model):
     image = models.ImageField(null=False, blank=False)
     title = models.CharField(max_length=2000, null=False, blank=False)
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, default=True, null=False)
+    brand = models.ForeignKey(Brands, on_delete=CASCADE, default=True)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     description = models.TextField()
     delivery_time = models.DateTimeField(default=datetime.now, blank=True)
@@ -70,7 +78,7 @@ class OrderItem(models.Model):
     quantity = models.IntegerField(default=0, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
-    @property
+    @ property
     def get_total(self):
         total = self.product.price*self.quantity
         return total
@@ -93,3 +101,20 @@ class ShippingAddress(models.Model):
 
     def __str__(self):
         return str(self.city)
+
+
+class Service(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    title = models.CharField(max_length=64, null=False, blank=False)
+    location = models.CharField(max_length=64)
+    number = models.CharField(max_length=10, blank=True, default=1)
+    description = models.TextField(max_length=400, blank=True, default='None')
+    time = models.CharField(max_length=64, null=True, default='1')
+    specification_service = models.CharField(
+        max_length=64, blank=True, default='poool')
+    size = models.CharField(max_length=100, blank=True, default='100 by 100')
+    fee = models.IntegerField()
+    date_ordered = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.location

@@ -11,7 +11,22 @@
                 <!----------------------------------------------------------------------------------------------Choosing categorise from database-->
                 <section class="main-products cooler">
           
-<a class="btn btn-lg btn-outline-info" id="read-button" href="{% url 'addCategory'%}">Add Category / Sub-Category</a>
+<hr>
+
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+    <!--==============--->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+    <a class="btn btn-lg btn-outline-info" id="read-button" href="{% url 'addCategory'%}">Add Category / Sub-Category</a>
+    </div>
+<!--=================-->
+<div class="btn-group" role="group" aria-label="Third group">
+    <a class="btn btn-lg btn-outline-info" id="read-button" href="{% url 'addBrand'%}">Add Brand</a>
+</div>
+<!--=================-->
+    <div class="btn-group" role="group" aria-label="Third group">
+        <a class="btn btn-lg btn-outline-info" id="read-button" href="{% url 'addProduct'%}">Add Product</a>
+    </div>
+</div>
 <style>
     .btn-outline-info{
         padding-bottom: 20px;

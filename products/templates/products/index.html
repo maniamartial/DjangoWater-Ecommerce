@@ -44,9 +44,10 @@
             <div class="two-long-section center ">
                 <div class="section-one long-section-wrap">
 <div class="center-section">
-    <marquee scrollamount="20">
-        <h1><a href="waterSamples.html">WODE</a> </h1>
-    </marquee>
+    <marque scrollamount="20">
+        <h1><a href="waters"><img class="logo3" src="{% static 'images/logo3.png' %}" alt="P"></a> </h1>
+    </marque>
+    
     <!--<button id="display-menu-button">
         <div class="hidden-menu" id="hidden-menu">
             <div class="stick"></div>
@@ -55,8 +56,14 @@
         </div>
 
     </button>-->
+<style>
+    .logo{
+        width: 200px;
+        height: 100px;
+    }
+</style>
 
-    <!-------------------------------------------------------------------------------------------------------------------------------------Implementing the search bar-->
+    <!-----------------------------------------------------------------------------------------------------------------------------------Implementing the search bar-->
     <form class="form-inline my-2 my-lg-0  submission-form" method="POST" action="{%url 'search'%}">
         {%csrf_token%}
         <div class="input-group mb-3">

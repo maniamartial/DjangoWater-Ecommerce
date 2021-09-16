@@ -1,6 +1,8 @@
-from products.forms import CategoryForm, ProductForm
+from users.decorators import allowed_user, staff_only
+from django.contrib.auth.models import User
+from products.forms import BrandsForm, CategoryForm, ProductForm, cleanForm, constForm, orderForm, plumbForm, serviceForm
 from django.core import paginator
-from products.models import Category, Order, OrderItem, Product, ShippingAddress
+from products.models import Category, Order, OrderItem, Product, Service, ShippingAddress
 from django.contrib.auth import login
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
@@ -78,6 +80,13 @@ def waterServices(request):
         cartitems = order['get_cart_items']
 
     waterservices = Product.objects.all()
+    '''action = waterservices['action']
+    if action == 'highest':
+        waterservices = Product.objects.all().order_by('price')
+        print('highest')
+    elif action == 'lowest':
+        waterservices = Product.objects.all().order_by('-price')
+        print('lowest')'''
 
     context = {
         'categories': categories, 'waterservicess': waterservices, 'cartitems': cartitems
@@ -88,7 +97,7 @@ def waterServices(request):
 
 
 def waterProducts(request):
-    categories = categories = Category.objects.filter(
+    categories = Category.objects.filter(
         name__startswith="Products").order_by('name')
     page_num = request.GET.get("page")
     paginator = Paginator(categories, 3)
@@ -119,6 +128,8 @@ def waterProducts(request):
 
 # Help page
 def help(request):
+    pro = Product.objects.get(title__iexact='computer')
+    print(pro)
     return render(request, 'products/help.html')
 
 # About us page
@@ -129,11 +140,34 @@ def aboutUs(request):
 
 
 def funAndGames(request):
+    prod = Product.objects.in_bulk([1])
+    print(prod)
     return render(request, 'products/waterfunpage.html')
 
 
+def brands(request):
+
+    return render(request, 'products/brand.html')
+
+
+def mywater(request):
+    productss = Product.objects.all()[4: 8]
+    products = Product.objects.all()[1:4]
+    context = {
+
+        'products': products,
+        'productss': productss
+    }
+    return render(request, 'products/mywater.html', context)
+
+
 def productDetail(request, pk):
+    categories = Category.objects.all()
     eachProduct = Product.objects.get(id=pk)
+    brand = eachProduct.brand
+    thisbrand = Product.objects.prefetch_related('brand')
+    print(thisbrand)
+    print(brand)
     if request.user.is_authenticated:
         customer = request.user
         order, created = Order.objects.get_or_create(
@@ -148,22 +182,18 @@ def productDetail(request, pk):
     context = {
         'cartitems': cartitems,
         'eachProduct': eachProduct,
+        'categories': categories,
 
     }
-    return render(request, 'products/singleProduct.html', context)
+    return render(request, 'products/ProductDetails.html', context)
 
 # Search functionalities
 
 
 def search(request):
-
     if request.method == "POST":
         search = request.POST['q']
         categories = Category.objects.filter(name__contains=search)
-        '''Water_Categories = water_categories.objects.filter(
-            name__contains=search)
-        Service_categories = water_services_category.objects.filter(
-            name__contains=search)'''
         product = Product.objects.filter(title__contains=search)
     # q = request.POST['q']
     # data = Category.objects.filter(name__icontains=q).order_by('-id')
@@ -189,6 +219,7 @@ def search(request):
 
 
 @ login_required
+@allowed_user(allowed_roles=['customer'])
 def checkout(request):
     if request.user.is_authenticated:
         customer = request.user
@@ -204,8 +235,9 @@ def checkout(request):
     context = {'items': items, 'order': order, 'cartitems': cartitems}
     return render(request, 'products/checkout.html', context)
 
-
 # Customers cart
+
+
 def userCart(request):
     if request.user.is_authenticated:
         customer = request.user
@@ -224,15 +256,14 @@ def userCart(request):
 def updateItem(request):
     print('Data: is this', request.body)
     data = json.loads(request.body)
-    productId = data['productId']
+    productId = data['productId'] or data['eachProductId']
     action = data['action']
     print('Action', action)
     print('productId:', productId)
 
     customer = request.user
     product = Product.objects.get(id=productId)
-    '''waters = Water_Types.objects.get(id=productId)
-    services = Water_Services.objects.get(id=productId),'''
+
     order, created = Order.objects.get_or_create(
         customer=customer, complete=False)
 
@@ -258,6 +289,7 @@ def updateItem(request):
 
 
 # Integrating the site with Mpesa and paypal payment methods3
+
 def paymentmethods(request):
     return render(request, "products/payment.html")
 
@@ -277,10 +309,9 @@ def processOrder(request):
         if total == order.get_cart_totals:
             order.complete = True
         order.save()
-
         if order.shipping == True:
             print("Wrong")
-            ShippingAddress.objects.create(
+            ship = ShippingAddress(
                 customer=customer,
                 order=order,
                 firstname=data['shipping']['firstname'],
@@ -289,6 +320,7 @@ def processOrder(request):
                 city=data['shipping']['city'],
                 zipcode=data['shipping']['zipcode']
             )
+            ship.save(force_insert=True)
     else:
         print("User doesn't exist")
     print('Data:', request.body)
@@ -297,16 +329,22 @@ def processOrder(request):
 
 # Dealing with Managers-Admin-
 # Create, Update and Delete Categories, subcategories and Products
+@login_required
+@staff_only
 def showProduct(request):
     allproducts = Product.objects.all()
+    number_of_products = Product.objects.all().count()
     context = {
-        'allproducts': allproducts
+        'allproducts': allproducts,
+        'number_of_products': number_of_products
 
     }
     return render(request, 'products/Admin/modifyAllProducts.html', context)
 
 
 # Manager add product
+@login_required
+@allowed_user(allowed_roles=['admin'])
 def addProduct(request):
     form = ProductForm()
     if request.method == 'POST':
@@ -321,8 +359,9 @@ def addProduct(request):
     }
     return render(request, 'products/Admin/addProduct.html', context)
 
-
 # Manager updating Product
+
+
 def updateProduct(request, pk):
     product = Product.objects.get(id=pk)
     form = ProductForm(instance=product)
@@ -340,6 +379,7 @@ def updateProduct(request, pk):
 
 
 # Manager deleting product
+
 def deleteProduct(request, pk):
     product = Product.objects.get(id=pk)
     product.delete()
@@ -363,8 +403,189 @@ def addCategory(request):
             form.save()
             return redirect('modifyAllProduct')
         else:
-            form = ProductForm()
+            form = CategoryForm()
     context = {
         'form': form
     }
     return render(request, 'products/Admin/addCategory.html', context)
+
+
+# Managers adding a category
+def addBrand(request):
+    form = BrandsForm()
+    if request.method == 'POST':
+        form = BrandsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('modifyAllProduct')
+        else:
+            form = BrandsForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'products/Admin/addBrand.html', context)
+
+
+def creteOrder(request):
+    form = orderForm()
+    if request.method == 'POST':
+        # pro = Product.objects.prefetch_related(
+        # Prefetch('category', queryset=Category.objects.order_by('name')))
+        pro = Product.objects.only('created_at').defer('title')
+        print(pro)
+        form = orderForm(request.POST)
+        if form.is_valid():
+            form.save()
+            redirect('home')
+    context = {'form': form}
+    return render(request, 'products/Admin/orderForm.html', context)
+
+
+def updateOrder(request, pk):
+    order = Order.objects.get(id=pk)
+    form = orderForm(instance=order)
+    if request.method == 'POST':
+        print("mania ur sickening")
+        form = orderForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            redirect('home')
+
+    context = {'form': form}
+    return render(request, 'products/Admin/orderForm.html', context)
+
+
+def deleteOrder(request, pk):
+    order = Order.objects.get(id=pk)
+    if request.method == 'POST':
+        order.delete()
+        redirect('home')
+    context = {'item': order}
+    return render(request, 'products/Admin/deleteOrder.html', context)
+
+
+def singleCategoryProducts(request):
+    category = Category.objects.all()
+    product = Product.objects.all()
+    context = {}
+    return render(request, 'products/singleCategory')
+
+
+'''def getNumber(request):
+    if request.user.is_authenticated:
+        current_user = request.user
+        number = current_user.username
+        return number'''
+
+
+@login_required
+def Services(request):
+    transaction_id = datetime.datetime.now().timestamp()
+    form = serviceForm()
+    c_form = constForm()
+    p_form = plumbForm()
+    cl_form = cleanForm()
+
+    if request.user.is_authenticated:
+        customer = request.user
+        # service = Service.objects.all()
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
+
+        order.transaction_id = transaction_id
+        if request.method == 'POST':
+            form = serviceForm(request.POST)
+            c_form = serviceForm(request.POST)
+            cl_form = serviceForm(request.POST)
+            p_form = serviceForm(request.POST)
+            if 'house-help' in request.POST:
+                if form.is_valid():
+                    order.complete = True
+                    order.save()
+                    form.save()
+                    Service.objects.filter(
+                        location='Vihiga').update(order=order)
+                else:
+                    print("Invalid")
+
+            elif 'clean' in request.POST:
+                if c_form.is_valid():
+                    order.complete = True
+                    order.save()
+                    c_form.save()
+                    Service.objects.filter(
+                        location='Vihiga').update(order=order)
+
+            elif 'plumb' in request.POST:
+                if cl_form.is_valid():
+                    order.complete = True
+                    order.save()
+                    cl_form.save()
+                    Service.objects.filter(
+                        location='Vihiga').update(order=order)
+                else:
+                    print(cl_form.errors)
+
+            elif 'construct' in request.POST:
+                if p_form.is_valid():
+                    order.complete = True
+                    order.save()
+                    p_form.save()
+                    Service.objects.filter(
+                        location='Vihiga').update(order=order)
+
+            else:
+                # print(p_form.errors)
+                print(c_form.errors)
+        else:
+            form = serviceForm()
+            c_form = constForm()
+            p_form = plumbForm()
+            cl_form = cleanForm()
+
+    context = {'form': form, 'c_form': c_form,
+               'cl_form': cl_form, 'p_form': p_form}
+    return render(request, 'products/service.html', context)
+
+
+# Admin viewing the Service Orders
+def AdminService(request):
+    househelps = Service.objects.filter(title__startswith='House')
+    cleanings = Service.objects.filter(title__startswith='Cleaning')
+    plumbings = Service.objects.filter(title__startswith='Plumbing')
+    constructions = Service.objects.filter(title__startswith='Construction')
+    context = {'househelps': househelps,
+               'cleanings': cleanings,
+               'plumbings': plumbings,
+               'constructions': constructions}
+    return render(request, 'products/Admin/serviceOrdered.html', context)
+
+
+def NewsWelfare(request):
+    context = {}
+    return render(request, 'products/FunNews/NewsWelfare.html', context)
+
+
+def NewsLocal(request):
+    context = {}
+    return render(request, 'products/FunNews/NewsLocal.html', context)
+
+
+def NewsInternational(request):
+    context = {}
+    return render(request, 'products/FunNews/NewsInternational.html', context)
+
+
+def wallpapers(request):
+    context = {}
+    return render(request, 'products/FunNews/wallpapers.html', context)
+
+
+def ringsofwater(request):
+    context = {}
+    return render(request, 'products/FunNews/ringOfWater.html', context)
+
+
+def waterfacts(request):
+    context = {}
+    return render(request, 'products/FunNews/waterFacts.html', context)
