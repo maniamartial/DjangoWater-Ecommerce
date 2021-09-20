@@ -92,8 +92,7 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            
-                          
+                                                     
                         </ul>
                     </h2>
                 </li>
@@ -134,19 +133,24 @@
 
                 <!------------------------------------------------------------------------------------------------------Dealing with authentication-->
                 {%if user.is_authenticated %}
-    <li class="accounts hide-small">
-            <div class="select">
-        <select class="hide-select" id="myselect">
-            <option value='profile'><a class="login" >Hi,{{user.username}}</a></option>
-            <option value='logout'><a class="login" href="{% url 'logout'%}" > Logout</a></option>
-            <option value="account"><a class="login" href="{%url 'profile'%}" >Profile</a></option>
-        </select>
-            </div>
+
+    <li>
+    <div class="dropdown">
+        <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Hi,{{user.username}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <a class="dropdown-item" type="button"></a>
+            <a class="dropdown-item" type="button" href="{% url 'logout'%}">Logout</a>
+            <a class="dropdown-item" type="button" href="{%url 'profile'%}">Profile</a>
+        </div>
+    </div>
     </li>
- 
+
                 {%else%}
          <li class="accounts hide-small">
-             <div class="select">
+            <!-- <div class="select">
             <select class="hide-select" id="myselect">
                 <option value=""><a id="login" class="logine" >Account</a></option>
                 <option value="login"><a id="login" class="logine btn-lg btn-info-outline" href="{% url 'login'%}">Login</a></option>
@@ -160,7 +164,26 @@
                     </a>
                 </option>
             </select>
-             </div>
+
+             </div>-->
+<div class="dropdown hide-select">
+    <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Account
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+        <a class="dropdown-item" type="button">Hi,{{user.username}}</a>
+        <a class="dropdown-item" type="button" href="{% url 'login'%}">Login</a>
+        <a class="dropdown-item" type="button" href="{% url 'register'%}">Register</a>
+        <a class="dropdown-item" type="button" href="{% url 'profile'%}">My Account</a>
+        <a class="dropdown-item" type="button" href="{% url 'help'%}">Helpl</a>
+        <a class="dropdown-item" type="button" href="{%url 'cart'%}">
+<i class="fa fa-shopping-cart "></i>
+<span class="badge badge-light">{{cartitems}}</span>
+        </a>
+    </div>
+</div>
+             
         </li>
           
                 {%endif%}
@@ -170,6 +193,11 @@
                 background-color: green;
                 margin-top: -50px;
             }
+            .btn-white{
+background-color: white;
+color: black;
+            }
+            
        
         </style>
     <li>
@@ -303,4 +331,14 @@
 
 </section>
 </main>
+
+    <li class="accounts hide-small">
+        <div class="select">
+            <select class="hide-select" id="myselect">
+                <option value='profile'><a class="login">Hi,{{user.username}}</a></option>
+                <option value='logout'><a class="login" href="{% url 'logout'%}">Logout</a></option>
+                <option value="account"><a class="login" href="{%url 'profile'%}">Profile</a></option>
+            </select>
+        </div>
+    </li>
 -->

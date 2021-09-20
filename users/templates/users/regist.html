@@ -57,6 +57,14 @@
                     </td>
                 </tr>
                 <tr>
+                    <td colspan="3">
+                        <div>
+                            {{form.phone}}
+                            {% if form.errors %} <p>{{form.phone.errors}}</p> {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
                           
                         <tr>
                     <td colspan="3">
@@ -88,6 +96,7 @@
         form_fields[2].placeholder = 'Email...';
         form_fields[3].placeholder = 'Password...';
         form_fields[4].placeholder = 'Confirm Password...';
+         form_fields[5].placeholder = 'Phone(Optional)...';
 
         for (var field in form_fields) {
             form_fields[field].className += 'form-control'

@@ -2,12 +2,12 @@
 
 {% block content %}
 <main>
-    <section class="single-product-page body-section">
+    <section class="single-product-page body-section" style="background-color: red;">
 
         <!---------------------------------------------------------------Displaying each-Product -->
         <div class="sproduct-position">
 
-            <div class="sproduct">
+            <div class="sproduct" >
                 <a class="btn btn-back" href="{%url 'products'%}">&lt;&lt;</a>
                 <div class="center">
                     <h4>{{eachProduct.brand}}</h4>
@@ -25,7 +25,7 @@
                         <div class="price" id="book-price">1 Litre</div>
                         <div class="wrap-book-buttons">
                             
-                            <button data-product="{{eachProduct.id}}" data-action="add" class="AddToCart update-cart"
+                            <button data-product="{{eachProduct.id}}" data-action="remove" class="AddToCart update-cart"
                                 id="addToCart update-cart">Add To
                                 Cart</button>
 
