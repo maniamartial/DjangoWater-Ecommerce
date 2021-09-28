@@ -5,12 +5,13 @@ from django.forms.widgets import EmailInput
 from django.shortcuts import redirect, render
 from .import form
 from users.form import AddressForm, CreateUserForm, LoginForm, User_Update_Form
-
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 # Create your views here.
 
 
+# Register members
 @unauthenticated_user
 def Register(request):
     form = CreateUserForm()
@@ -27,6 +28,7 @@ def Register(request):
     return render(request, "users/regist.html", context)
 
 
+# Allow people to signIn
 @unauthenticated_user
 def Login(request):
     if request.method == 'POST':
@@ -42,6 +44,7 @@ def Login(request):
     return render(request, "users/login.html", context)
 
 
+# Allow the customer to provide ur address
 def address(request):
     form = AddressForm()
     if request.method == "POST":
@@ -61,6 +64,8 @@ def Logout(request):
     return render(request, 'users/logout.html')
 
 
+# Updating the profile of the user
+@login_required
 def profile(request):
     if request.method == 'POST':
 
@@ -69,7 +74,7 @@ def profile(request):
         if u_form.is_valid():
             u_form.save()
 
-            messages.success(request, f'Account Updated sucesssfully!')
+            messages.success(request, f'Account Updated sucessfuly!')
             return redirect('profile')
     else:
         u_form = User_Update_Form(instance=request.user)
@@ -81,6 +86,7 @@ def profile(request):
     return render(request, 'users/profile.html', context)
 
 
+# Implement how we can delete customers accounts
 '''def deleteuser(request):
     current_user = request.user
     if request.method == 'POST':

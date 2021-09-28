@@ -45,7 +45,7 @@
                 <div class="section-one long-section-wrap">
 <div class="center-section">
     <marque scrollamount="20">
-        <h1><a href="waters"><img class="logo3" src="{% static 'images/logo3.png' %}" alt="P"></a> </h1>
+        <h1><a href="waters">Wode</a> </h1>
     </marque>
     
     <!--<button id="display-menu-button">
@@ -53,6 +53,7 @@
             <div class="stick"></div>
             <div class="stick"></div>
             <div class="stick"></div>
+            <img class="logo3" src="{% static 'images/logo3.png' %}" alt="P">
         </div>
 
     </button>-->
@@ -172,6 +173,40 @@
         </div>
 
     </section>
+    <div class="hide-large">
+        <nav class="mobile-bottom-nav hide-large">
+            <div class="mobile-bottom-nav__item mobile-bottom-nav__item--active">
+                <div class="mobile-bottom-nav__item-content">
+                    <a class="nav-link" href="{% url 'home'%}"><i class="fa-size fa fa-home nav-ico fa-2x" aria-hidden="true"></i>
+                        <div>Home</div>
+                    </a>
+                </div>
+            </div>
+            <div class="mobile-bottom-nav__item">
+                <div class="mobile-bottom-nav__item-content">
+                    <a class="nav-link" href="{% url 'about_us'%}"><i class="fa fa-picture-o nav-ico fa-2x" aria-hidden="true"></i>
+                        <div>Cart</div><span class="sr-only">(current)</span>
+                    </a>
+                </div>
+            </div>
+            <div class="mobile-bottom-nav__item">
+                <div class="mobile-bottom-nav__item-content">
+                    <a class="nav-link" href="{% url 'about_us'%}"><i class="fa-size fa fa-info-circle nav-ico fa-2x"
+                            aria-hidden="true"></i>
+                        <div>About_Us</div> <span class="sr-only">(current)</span>
+                    </a>
+                </div>
+            </div>
+    
+            <div class="mobile-bottom-nav__item">
+                <div class="mobile-bottom-nav__item-content">
+                    <a class="nav-link"href="{% url 'profile'%}" href="contact_us.html"><i class="fa fa-support fa-pin nav-ico fa-2x"></i>
+                        <div>Account</div><span class="sr-only">(current)</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
 
 
 <!--Bootstrap javascript-->

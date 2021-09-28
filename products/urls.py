@@ -5,7 +5,7 @@ from .import views
 urlpatterns = [
 
     path('waters', views.waterSamples, name='waters'),
-    path('services', views.waterServices, name="services"),
+    #path('services', views.waterServices, name="services"),
     path('products', views.waterProducts, name='products'),
     path('product/<int:pk>/', views.productDetail, name='product'),
     path('fun', views.funAndGames, name='fun'),

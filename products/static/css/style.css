@@ -848,11 +848,7 @@ button:focus {
     margin-left: 5px;
     justify-content: flex-start;
   }
-  .hide-large {
-    display: block;
-    padding-left: 80px;
-    margin-top: 10px;
-  }
+
   header {
     margin-top: 5px;
     max-height: 130px;

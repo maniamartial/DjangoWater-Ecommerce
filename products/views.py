@@ -56,7 +56,7 @@ def waterSamples(request):
 
 
 # Different Water Services
-def waterServices(request):
+'''def waterServices(request):
     categories = Category.objects.filter(
         name__startswith="Services")
     page_num = request.GET.get("page")
@@ -80,22 +80,21 @@ def waterServices(request):
         cartitems = order['get_cart_items']
 
     waterservices = Product.objects.all()
-    '''action = waterservices['action']
+    action = waterservices['action']
     if action == 'highest':
         waterservices = Product.objects.all().order_by('price')
         print('highest')
     elif action == 'lowest':
         waterservices = Product.objects.all().order_by('-price')
-        print('lowest')'''
+        print('lowest')
 
     context = {
         'categories': categories, 'waterservicess': waterservices, 'cartitems': cartitems
     }
-    return render(request, "products/waterServicesPage.html", context)
+    return render(request, "products/waterServicesPage.html", context)'''
+
 
 # Different water Products
-
-
 def waterProducts(request):
     categories = Category.objects.filter(
         name__startswith="Products").order_by('name')
@@ -145,22 +144,23 @@ def funAndGames(request):
     return render(request, 'products/waterfunpage.html')
 
 
+# Displaying different brands
 def brands(request):
-
     return render(request, 'products/brand.html')
 
 
+# my Water services
 def mywater(request):
     productss = Product.objects.all()[4: 8]
     products = Product.objects.all()[1:4]
     context = {
-
         'products': products,
-        'productss': productss
+        'products': productss
     }
     return render(request, 'products/mywater.html', context)
 
 
+# showing the details of single products
 def productDetail(request, pk):
     categories = Category.objects.all()
     eachProduct = Product.objects.get(id=pk)
@@ -187,16 +187,13 @@ def productDetail(request, pk):
     }
     return render(request, 'products/ProductDetails.html', context)
 
-# Search functionalities
 
-
+# Search functionalities, implementation
 def search(request):
     if request.method == "POST":
         search = request.POST['q']
         categories = Category.objects.filter(name__contains=search)
         product = Product.objects.filter(title__contains=search)
-    # q = request.POST['q']
-    # data = Category.objects.filter(name__icontains=q).order_by('-id')
         if request.user.is_authenticated:
             customer = request.user
             order, created = Order.objects.get_or_create(
@@ -219,7 +216,7 @@ def search(request):
 
 
 @ login_required
-@allowed_user(allowed_roles=['customer'])
+@allowed_user(allowed_roles=['customer', 'admin'])
 def checkout(request):
     if request.user.is_authenticated:
         customer = request.user
@@ -289,7 +286,6 @@ def updateItem(request):
 
 
 # Integrating the site with Mpesa and paypal payment methods3
-
 def paymentmethods(request):
     return render(request, "products/payment.html")
 
@@ -344,7 +340,7 @@ def showProduct(request):
 
 # Manager add product
 @login_required
-@allowed_user(allowed_roles=['admin'])
+@allowed_user(allowed_roles=['admin', 'staff'])
 def addProduct(request):
     form = ProductForm()
     if request.method == 'POST':
@@ -362,6 +358,8 @@ def addProduct(request):
 # Manager updating Product
 
 
+@login_required
+@allowed_user(allowed_roles=['admin', 'staff'])
 def updateProduct(request, pk):
     product = Product.objects.get(id=pk)
     form = ProductForm(instance=product)
@@ -379,7 +377,8 @@ def updateProduct(request, pk):
 
 
 # Manager deleting product
-
+@login_required
+@allowed_user(allowed_roles=['admin', 'staff'])
 def deleteProduct(request, pk):
     product = Product.objects.get(id=pk)
     product.delete()
@@ -387,6 +386,8 @@ def deleteProduct(request, pk):
 
 
 # Manager accessing details of products
+@login_required
+@allowed_user(allowed_roles=['admin', 'staff'])
 def modifySingleProduct(request, pk):
     eachProduct = Product.objects.get(id=pk)
     context = {
@@ -395,6 +396,8 @@ def modifySingleProduct(request, pk):
 
 
 # Managers adding a category
+@login_required
+@allowed_user(allowed_roles=['admin', 'staff'])
 def addCategory(request):
     form = CategoryForm()
     if request.method == 'POST':
@@ -411,6 +414,8 @@ def addCategory(request):
 
 
 # Managers adding a category
+@login_required
+@allowed_user(allowed_roles=['admin', 'staff'])
 def addBrand(request):
     form = BrandsForm()
     if request.method == 'POST':
@@ -426,6 +431,8 @@ def addBrand(request):
     return render(request, 'products/Admin/addBrand.html', context)
 
 
+@login_required
+@allowed_user(allowed_roles=['admin', 'staff'])
 def creteOrder(request):
     form = orderForm()
     if request.method == 'POST':
@@ -441,6 +448,8 @@ def creteOrder(request):
     return render(request, 'products/Admin/orderForm.html', context)
 
 
+@login_required
+@allowed_user(allowed_roles=['admin', 'staff'])
 def updateOrder(request, pk):
     order = Order.objects.get(id=pk)
     form = orderForm(instance=order)
@@ -455,6 +464,8 @@ def updateOrder(request, pk):
     return render(request, 'products/Admin/orderForm.html', context)
 
 
+@login_required
+@allowed_user(allowed_roles=['admin', 'staff'])
 def deleteOrder(request, pk):
     order = Order.objects.get(id=pk)
     if request.method == 'POST':
@@ -463,12 +474,16 @@ def deleteOrder(request, pk):
     context = {'item': order}
     return render(request, 'products/Admin/deleteOrder.html', context)
 
+# Single category
+
 
 def singleCategoryProducts(request):
     category = Category.objects.all()
     product = Product.objects.all()
-    context = {}
-    return render(request, 'products/singleCategory')
+    context = {'category': category,
+               'product': product}
+
+    return render(request, 'products/singleCategory', context)
 
 
 '''def getNumber(request):
@@ -561,6 +576,7 @@ def AdminService(request):
     return render(request, 'products/Admin/serviceOrdered.html', context)
 
 
+# Blogs of teh platforms, intergrate with teh blog code
 def NewsWelfare(request):
     context = {}
     return render(request, 'products/FunNews/NewsWelfare.html', context)
@@ -576,11 +592,13 @@ def NewsInternational(request):
     return render(request, 'products/FunNews/NewsInternational.html', context)
 
 
+# Allow user download variety of wallpaper related to water
 def wallpapers(request):
     context = {}
     return render(request, 'products/FunNews/wallpapers.html', context)
 
 
+# Games to be played
 def ringsofwater(request):
     context = {}
     return render(request, 'products/FunNews/ringOfWater.html', context)
