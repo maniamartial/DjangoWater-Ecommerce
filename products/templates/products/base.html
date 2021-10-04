@@ -32,7 +32,12 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-    <!--===============================================================================================-->
+ <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@500&display=swap" rel="stylesheet">
+    <!--======================================================help=========================================-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/animation.css' %}">
     <link rel="stylesheet" href="{% static 'css/watersample.css' %}">
@@ -40,6 +45,7 @@
     <link rel="stylesheet" href="{% static 'css/singleProduct.css' %}">
     <link rel="stylesheet" href="{% static 'css/payment.css' %}">
         <link rel="stylesheet" href="{% static 'css/aboutus.css' %}">
+        <link rel="stylesheet" href="{% static 'css/help.css' %}">
     <!-------------------------------------------------------------------------------------------------------------------------------------------------->
 <script type="text/javascript">
 //Used to find the current user of teh site
@@ -89,9 +95,22 @@
                             <li><a class="dropdown-item btn btn-info " href="{%url 'products'%}">Water Products</a></li>
                             <li><a class="dropdown-item" href="{%url 'service'%}">Water Services</a></li>
                             <li><a class="dropdown-item" href="{%url 'fun'%}">Water Games and Fun</a></li>
+                            <li><a class="dropdown-item" href="{%url 'mywater'%}">My Water</a></li>
                             <li>
                                 <hr class="dropdown-divider">
+                                
                             </li>
+                   
+                                
+                                {%if user.is_authenticated %}
+                                        <li class="show-mobile"><a class="dropdown-item" type="button" href="{% url 'logout'%}">Logout</a></li>
+                                        <li class="show-mobile"><a class="dropdown-item" type="button" href="{%url 'profile'%}">Profile</a></li>
+                                  {%else%}
+                                <li class="show-mobile"><a class="dropdown-item" type="button" href="{%url 'login'%}">Login</a></li>
+                                <li class="show-mobile"><a class="dropdown-item" type="button" href="{%url 'register'%}">Register</a></li>
+                                <li class="show-mobile"><a class="dropdown-item" type="button" href="{% url 'logout'%}">Account</a></li>
+                               {%endif%}
+                           
                                                      
                         </ul>
                     </h2>
@@ -106,17 +125,26 @@
     .dropdown-item:hover{
         background-color: lightblue;
     }
+    .show-mobile{
+        display: none;
+    }
+    @media(max-width:500px){
+        .show-mobile{
+            display: block;
+        }
+    }
 </style>
                 <!------------------------------------------------------------------------------------------------------------Logo name-->
-                <li class="logoname"><a href="{% url 'home' %}">
-                        <img class="logo3" src="{% static 'images/logo3.png' %}" alt="P"></a> </h1>
-                    </a></li>
+                <li class="logoname"><marque scrollamount="20">
+                    <h1><a style="font-family: 'Gemunu Libre', sans-serif" href="{%url 'home'%}">Wode</a> </h1>
+                </marque></li>
                     <li>
-                        <a class="hide-large btn btn-success btn-sm ml-3" href="{%url 'cart'%}" style="margin-left:50px ;">
+                        <a class="hide-large btn btn-succes btn-sm ml-3" href="{%url 'cart'%}" style="margin-left:100px ;">
                             <i class="fa fa-shopping-cart "></i>
                             <span class="badge badge-light">{{cartitems}}</span>
                         </a>
                     </li>
+                    
 <!-----------------------------------------------------------------------------------------------------------End of logo name-->
 <!------------------------------------------------------------------------------------------------------------Search-->
                 <li>
@@ -125,16 +153,17 @@
                     <div class="input-group mb-3">
                         <input type="search" name="q" class="form-control" placeholder="Search" >
                         <div class="input-group-append">
-                            <button type="submit" class="input-group-text" id="basic-addon2" style="background-color: gold;">Search</button>
+                            <button type="submit" class="input-group-text" id="basic-addon2" style="background-color: lightblue;">Search</button>
                         </div>
                     </div>    </form>
                 </li>
+
           <!-------------------------------------------------------------------------------------------------------End of search -->
 
                 <!------------------------------------------------------------------------------------------------------Dealing with authentication-->
                 {%if user.is_authenticated %}
 
-    <li>
+    <li class="hide-small" >
     <div class="dropdown">
         <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -144,39 +173,26 @@
             <a class="dropdown-item" type="button"></a>
             <a class="dropdown-item" type="button" href="{% url 'logout'%}">Logout</a>
             <a class="dropdown-item" type="button" href="{%url 'profile'%}">Profile</a>
+            
         </div>
     </div>
     </li>
 
                 {%else%}
+                
          <li class="accounts hide-small">
-            <!-- <div class="select">
-            <select class="hide-select" id="myselect">
-                <option value=""><a id="login" class="logine" >Account</a></option>
-                <option value="login"><a id="login" class="logine btn-lg btn-info-outline" href="{% url 'login'%}">Login</a></option>
-                <option value="register"><a class="login btn-danger" href="{% url 'login'%}">Register</a></option>
-                <option value="account"><a class="login btn btn-info-outline" href="#">My Account</a></option>
-                <option value="" class="hide-small-media"><a href="{% url 'help'%}">Help</a></option>
-                <option value="" class="hide-small-media">
-                    <a class="btn btn-success btn-sm ml-3" href="{%url 'cart'%}">
-                        <i class="fa fa-shopping-cart "></i>
-                        <span class="badge badge-light">{{cartitems}}</span>
-                    </a>
-                </option>
-            </select>
-
-             </div>-->
+       
 <div class="dropdown hide-select">
     <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
         Account
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-        <a class="dropdown-item" type="button">Hi,{{user.username}}</a>
+     
         <a class="dropdown-item" type="button" href="{% url 'login'%}">Login</a>
         <a class="dropdown-item" type="button" href="{% url 'register'%}">Register</a>
         <a class="dropdown-item" type="button" href="{% url 'profile'%}">My Account</a>
-        <a class="dropdown-item" type="button" href="{% url 'help'%}">Helpl</a>
+        <a class="dropdown-item" type="button" href="{% url 'help'%}">Help</a>
         <a class="dropdown-item" type="button" href="{%url 'cart'%}">
 <i class="fa fa-shopping-cart "></i>
 <span class="badge badge-light">{{cartitems}}</span>
@@ -189,6 +205,9 @@
                 {%endif%}
     <!-------------------------------------------------------------------------------------------------------------------------------End of authentication-->
         <style>
+            .badge-light{
+                color: red;
+            }
             .input-group {
                 background-color: green;
                 margin-top: -50px;
@@ -201,20 +220,22 @@ color: black;
        
         </style>
     <li>
-        <a class="btn btn-success btn-sm ml-3 hide-small" href="{%url 'cart'%}">
+        <a class="btn btn-succes btn-sm ml-3 hide-small" href="{%url 'cart'%}">
             <i class="fa fa-shopping-cart "></i>
             <span class="badge badge-light">{{cartitems}}</span>
         </a>
     </li>
-    <style>
-        
-    </style>
-    <!----------------------------------------->
+       <!----------------------------------------->
     <li class="help hide-small"><a href="{% url 'help'%}">Help</a></li>
              
             </ul>
         </nav>
     </header>
+    <style>
+        .btn-succes{
+            background-color: lightblue;
+        }
+    </style>
   
     <!------------------------------------------------------------------------------------------------------------------------Implementing the sidecart-->
  
@@ -236,9 +257,9 @@ color: black;
             <div class="footer-section two">
                 <h3>OPENING HOURS</h3>
                 <ul>
-                    <li>WEEKDAYS: 8:00AM TO 6:00PM</li>
-                    <li>SATURDAY/HOLIDAYS: 8:00AM: 2:00PM</li>
-                    <li>SUNDAY- 2:00PM: TO 6:00PM</li>
+                    <li>WEEKDAYS: 5:30AM TO 8:00PM</li>
+                    <li>SATURDAY/HOLIDAYS:5:30AM TO 8:00PM</li>
+                    <li>SUNDAY- 5:30AM TO 8:00PM</li>
                 </ul>
             </div>
             <div class="footer-section three">
@@ -253,7 +274,7 @@ color: black;
 
         <div class="end-footer">
 
-            <div class="copy" style="color: black;">Copyright &copy;2021 All rights reserved </div>
+            <div class="copy" style="color: black;">Copyright &copy;2021 <a href="{%url 'modifyAllProduct'%}">All rights reserved</a> </div>
         </div>
 
     </footer>
@@ -273,6 +294,7 @@ color: black;
         crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
         
     <!--===============================================================================================-->
     <script type="text/javascript" src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
@@ -289,56 +311,3 @@ color: black;
 <script src="{% static 'js/service.js' %}"></script>
 </body>
 </html>
-
-
-<!--   <main>
-      
-<aside class="cart-sidebar trans-0-4" id="cart-bar">
-
-    <button class="btn-hide-sidebar ti-close color0-hov trans-0-4">X</button>
-    <h3 class="cart-heading">Cart items :</h3>
-    <div class="cart-row">
-        <span class="cart-book cart-header cart-column">BOOK</span>
-        <span class="cart-book cart-header cart-column">QUANTITY</span>
-        <span class="cart-book cart-header cart-column">PRICE</span>
-    </div>
-    <div class="cart-items">
-        <div class="cart-row">
-            <span class="cart-book cart-b">
-                <img class="cart-image" src="images/waterjerrican.jpg" width="100px" height="100px">
-                <div class="cart-book-title">Maniax</div>
-            </span>
-
-            <span class="cart-quantity cart-column">
-                <input type="number" value="1" class="cart-quantity-input">
-
-            </span>
-            <span class="price-cancel">
-                <div class="cart-price">Ksh.20</div>
-                <button class="btn btn-danger" type="button">X</button>
-            </span>
-        </div>
-    </div>
-    <div class="cart-total center">
-        <Strong class="cart-total-title">Total:</Strong>
-        <span class="cart-total-price">Ksh.20</span>
-
-    </div>
-    <button class="btn btn-purchase" type="button">CHECK-OUT</button>
-    </div>
-
-</aside>
-
-</section>
-</main>
-
-    <li class="accounts hide-small">
-        <div class="select">
-            <select class="hide-select" id="myselect">
-                <option value='profile'><a class="login">Hi,{{user.username}}</a></option>
-                <option value='logout'><a class="login" href="{% url 'logout'%}">Logout</a></option>
-                <option value="account"><a class="login" href="{%url 'profile'%}">Profile</a></option>
-            </select>
-        </div>
-    </li>
--->

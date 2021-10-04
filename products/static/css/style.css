@@ -127,7 +127,7 @@ footer {
   color: white;
   display: block;
   height: auto;
-  background-color: rgb(78, 78, 185);
+  background-color: rgb(127, 201, 226);
 }
 
 .sections {
@@ -186,8 +186,9 @@ footer {
 footer h3 {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 23px;
-  color: red;
+  color: white;
 }
+
 footer li {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
@@ -250,6 +251,7 @@ footer li {
   }
   .hide-small {
     visibility: hidden;
+    display: none;
   }
 }
 
@@ -425,9 +427,7 @@ h4 {
   width: 90%;
   height: 45px;
 }
-.buy-button {
-  background-color: darkgreen;
-}
+
 .wrap-single-book .libhead {
   color: black;
 }
@@ -651,6 +651,27 @@ body {
   /*padding:0 15px;*/
 }
 
+@media (max-width: 500px) {
+  .slider {
+    height: 300px;
+    margin-left: 1%;
+    width: 98%;
+    overflow: hidden;
+    background-color: lightblue;
+    border-radius: 10px;
+  }
+  .slider-content__controls {
+    width: 100%;
+    height: 250px;
+    z-index: 1;
+    /*transform: translateY(-50%);*/
+    /*padding:0 15px;*/
+  }
+  .inside-slider {
+    font-size: 25px;
+    margin-bottom: 200px;
+  }
+}
 /* Arrows */
 .prev-arrow,
 .next-arrow {
@@ -806,7 +827,7 @@ button:focus {
   height: 30px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 540px) {
   .news .btn-group {
     margin-right: 1.5%;
     margin-top: 1%;
@@ -817,13 +838,16 @@ button:focus {
 
     border-radius: 5px;
   }
-
+  .hide-large {
+    display: block;
+    margin-top: 10px;
+    float: right;
+  }
   .containers .center {
     margin-left: -30px;
     background-color: red;
   }
   .btn-toolbar {
-    background-color: green;
     margin-left: -45px;
   }
 }

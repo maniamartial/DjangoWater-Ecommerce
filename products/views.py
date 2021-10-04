@@ -127,8 +127,7 @@ def waterProducts(request):
 
 # Help page
 def help(request):
-    pro = Product.objects.get(title__iexact='computer')
-    print(pro)
+
     return render(request, 'products/help.html')
 
 # About us page
@@ -225,6 +224,7 @@ def checkout(request):
         items = order.orderitem_set.all()
 
         cartitems = order.get_cart_items
+        # 'return redirect('purchaseOnDelivery')
     else:
         items = []
         order = {' get_cart_total': 0, 'get_cart_items': 0}
@@ -326,7 +326,7 @@ def processOrder(request):
 # Dealing with Managers-Admin-
 # Create, Update and Delete Categories, subcategories and Products
 @login_required
-@staff_only
+@allowed_user(allowed_roles=['admin', 'staff'])
 def showProduct(request):
     allproducts = Product.objects.all()
     number_of_products = Product.objects.all().count()

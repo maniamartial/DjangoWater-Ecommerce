@@ -89,6 +89,10 @@
     height: 30px;
     margin-right: 5px;
   }
+  .hide-small {
+    visibility: hidden;
+    display: none;
+  }
   .sortby {
     margin-left: 0%;
   }

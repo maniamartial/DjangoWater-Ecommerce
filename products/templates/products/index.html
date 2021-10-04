@@ -27,6 +27,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital@0;1&family=Merienda:wght@400;700&display=swap"
         rel="stylesheet">
+
+        <!--==========================================================================================-->
+  
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesom">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   
+    
+        <!--==========================================================================================-->
     <!---------------------------------->
 <link rel="stylesheet" href="{% static 'css/landingpage.css'%}">
 </head>
@@ -106,10 +115,40 @@
                 <a href="{% url 'help'%}">Help</a>
             </li>
         </ul>
+
+        <div class="bottom-corner">
+<a class="btn btn-block waves-effect waves-light"  href="{%url 'mywater'%}">
+    My Water
+</a>
+        </div>
     </div>
    
 
     <style>
+        .waves-effect{
+            background-color: gold;
+        }
+        .bottom-corner{
+            margin-left: -2%;
+            width: 15%;
+   
+           position: absolute;
+    bottom: 0;
+    margin-bottom: 100px;
+    height: 100px;
+ 
+        }
+        @media(max-width:1024px){
+             .bottom-corner{
+            margin-left: -7%;
+            width: 35%;
+        
+           position: absolute;
+    bottom: 0;
+    margin-bottom: 100px;
+ 
+        }
+        }
         .form-inline{
             margin-left: -50px;
             width: 190%;
@@ -205,9 +244,15 @@
                     </a>
                 </div>
             </div>
+
         </nav>
     </div>
+<style>
+    a i {
+  color: gold;
 
+}
+</style>
 
 <!--Bootstrap javascript-->
 <!-- jQuery first, --------------------------------------------------------------------------------------->
