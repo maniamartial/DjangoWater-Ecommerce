@@ -16,8 +16,8 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# warnings.filterwarnings(
-#   "ignore", message="No directory at", module="whitenoise.base")
+warnings.filterwarnings(
+    "ignore", message="No directory at", module="whitenoise.base")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-^0sj(^lyw!#k6nql^6=&o+z0h9=xs$i#f=nbu$kzd#br8ma0tb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://wodeumoja.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['wodeumojacli.herokuapp.com', '127.0.0.1']
 
 # Application definition
 
@@ -54,7 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
+
 ]
 
 ROOT_URLCONF = 'UmojaWater.urls'
@@ -136,7 +136,6 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
-
 
 
 # Default primary key field type
