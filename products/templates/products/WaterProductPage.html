@@ -66,11 +66,12 @@
 
                     <hr />
 
-                    <!-------------------------------------------------------------------------------------------------------Products-wraps-->
+                    <!--======Products-wraps-->
                     <div class="specific-product-wrap specific-product-wrap-cooler">
                     
                     {% for product in category.product_set.all %}
                         <a href="{%url 'product' product.pk%}">
+
 <div class="specific-single-product">
     <div class="product-image center">
         <img class="product-image-shape" src="{{product.image.url}}" alt="adamol Distilled" />
