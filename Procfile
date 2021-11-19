@@ -1,1 +1,1 @@
-web: gunicorn UmojaWater.wsgi
+web: gunicorn UmojaWater.wsgi --log-file -

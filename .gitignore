@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 venv
 *.pyc
 staticfiles
@@ -5,3 +6,7 @@ staticfiles
 db.sqlite3
 mania-deployment/*
 
+=======
+ENV/
+__pycache__/
+>>>>>>> 993afe0b34128abe7690515065d7b16e5dc5def4
