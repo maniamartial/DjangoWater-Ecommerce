@@ -40,6 +40,7 @@ class Product(models.Model):
         return self.title
 
 
+# Order from the users
 class Order(models.Model):
     customer = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, blank=True)
@@ -50,6 +51,7 @@ class Order(models.Model):
     def __str__(self):
         return str(self.id)
 
+# Shipping in relation to the number of ordered items..
     @property
     def shipping(self):
         shipping = False
@@ -58,6 +60,9 @@ class Order(models.Model):
             if i.product.digital == False:
                 shipping = True
         return shipping
+
+
+# cart totals
 
     @property
     def get_cart_totals(self):
@@ -72,6 +77,7 @@ class Order(models.Model):
         return total
 
 
+# Customer making an order
 class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)

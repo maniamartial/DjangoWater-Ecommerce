@@ -27,9 +27,9 @@ warnings.filterwarnings(
 SECRET_KEY = 'django-insecure-^0sj(^lyw!#k6nql^6=&o+z0h9=xs$i#f=nbu$kzd#br8ma0tb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['wodeumojacli.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -142,6 +143,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+# used for pictures
 MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 

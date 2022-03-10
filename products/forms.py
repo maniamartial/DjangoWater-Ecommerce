@@ -5,6 +5,7 @@ from django import forms
 from django.forms import ModelForm
 
 
+# creating a backend form for updating and filling product-for administrator and the team
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
@@ -22,6 +23,8 @@ class ProductForm(forms.ModelForm):
             'is_published': forms.CheckboxInput(attrs={'class': 'form-control'}),
 
         }
+
+# Admin adding category interface
 
 
 class CategoryForm(forms.ModelForm):
