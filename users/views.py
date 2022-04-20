@@ -94,3 +94,4 @@ def profile(request):
         redirect('home')
     context = {'current_user': current_user}
     return render(request, 'user/profile.html', context)'''
+

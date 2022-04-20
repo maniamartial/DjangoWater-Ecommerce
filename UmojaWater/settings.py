@@ -162,3 +162,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'computerscie19@gmail.com'
 EMAIL_HOST_PASSWORD = 'logicgates'
+
+django_heroku.settings(locals())

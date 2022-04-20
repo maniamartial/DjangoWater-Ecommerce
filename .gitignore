@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 venv
 *.pyc
-staticfiles
+
 .env
 db.sqlite3
 mania-deployment/*
